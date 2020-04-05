@@ -9,5 +9,19 @@
 <p> Hi </p>
 <p> {{ tmp }} </p>
 
+{#Repo List#}
+
+ {% for repo in invalid_repo %}
+    <li>
+    {{ repo }}
+    </li>
+ {% endfor %}
+
+ {% for repo in valid_repo %}
+    <li>
+    {{ repo }}
+    </li>
+ {% endfor %}
+
 </body>
 </html>

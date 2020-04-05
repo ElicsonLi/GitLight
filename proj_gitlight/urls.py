@@ -21,6 +21,6 @@ from gitlight import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gitlight/', include('gitlight.urls')),
-    # TODO: Delete it after debug
-    path('', views.test),
+    # TODO: Delete it after debugging
+    path('', views.repo_list),
 ]
