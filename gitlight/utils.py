@@ -5,6 +5,9 @@ from gitlight.gitop.repo import FancyRepo, InvalidRepo
 from dulwich.errors import *
 from gitlight import REPO_PATH
 
+from werkzeug.wrappers import Response
+from werkzeug.exceptions import NotFound
+
 
 def load_repos_name(path):
     """Get a dict of repo names and repo objects"""
@@ -39,7 +42,46 @@ def path_to_paths(path):
     return paths
 
 
+def get_repo_rev(repo, rev=None, path=None):
+    """fetch repo from repo list"""
+    if path and rev:
+        rev += "/" + path.rstrip("/")
+
+    valid_repos, invalid_repos = load_repos_name(path)
+
+    # Try to find repo in valid repo list
+    try:
+        repo = valid_repos[repo]
+    except KeyError:
+        raise NotFound("No such repository %r" % repo)
+
+    # if branch not specify
+    if rev is None:
+        rev = repo.get_default_branch()
+        if rev is None:
+            raise NotFound("Empty repository")
+
+    # Try to get default commit
+    i = len(rev)
+    while i > 0:
+        try:
+            commit = repo.get_commit(rev[:i])
+            path = rev[i:].strip("/")
+            rev = rev[:i]
+        except (KeyError, IOError):
+            i = rev.rfind("/", 0, i)
+        else:
+            break
+    else:
+        raise NotFound("No such commit %r" % rev)
+
+    return repo, rev, path, commit
+
+
 if __name__ == '__main__':
-    print(path_to_paths(REPO_PATH))
-    valid_repos, invalid_repos = load_repos_name(path_to_paths(REPO_PATH))
+    REPO_PATH_DBG = '../repos'
+    print(path_to_paths(REPO_PATH_DBG))
+    valid_repos, invalid_repos = load_repos_name(REPO_PATH_DBG)
     print(valid_repos, invalid_repos)
+    repo, rev, path, commit = get_repo_rev('websockets-example', rev = None , path = None)
+    print(commit)

@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.repo_list, name='repo_list'),
+    path('<str:repo_name>', views.repo_contents, name='repo_contents')
 ]

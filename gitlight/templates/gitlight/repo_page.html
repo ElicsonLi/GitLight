@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>repo.name: {{ repo.name }}</h1>
+<p>rev: {{ rev }}</p>
+<p>branchs: {{ branches }}</p>
+<p>path: {{ path }}</p>
+<p>bolb_or_tree: {{ blob_or_tree }}</p>
+
+
+<ul>
+    {% for commit in history %}
+        <li>
+            <p>{{ commit.message }}</p>
+            <p>
+                {{ commit.author }}
+            </p>
+            <p>
+                {{ commit.commit_time }}
+            </p>
+
+        </li>
+    {% endfor %}
+</ul>
+
+<h1>Directory</h1>
+<ul>
+    {% for name, fullpath in root_tree.dirs %}
+        <li>{{ name }}</li>
+    {% endfor %}
+    {% for name, fullpath in root_tree.submodules %}
+        <li>{{ name }}</li>
+    {% endfor %}
+    {% for name, fullpath in root_tree.files %}
+        <li>{{ name }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

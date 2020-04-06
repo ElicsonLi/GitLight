@@ -6,20 +6,20 @@
 </head>
 <body>
 
-<p> Hi </p>
-<p> {{ tmp }} </p>
-
+<h1> Repo List </h1>
 {#Repo List#}
 
+<h3>Invalid Repos</h3>
  {% for repo in invalid_repo %}
     <li>
     {{ repo }}
     </li>
  {% endfor %}
 
+<h3>Valid Repos</h3>
  {% for repo in valid_repo %}
     <li>
-    {{ repo }}
+        <a href="{% url 'repo_contents' repo%}" id = "test">{{ repo }}</a>
     </li>
  {% endfor %}
 

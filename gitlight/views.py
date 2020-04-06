@@ -4,6 +4,7 @@ from gitlight.gitop import repo
 from gitlight.utils import *
 from gitlight import REPO_PATH
 
+
 # def test(request):
 #     context = {}
 #     r = repo.FancyRepo('.')
@@ -18,4 +19,28 @@ def repo_list(request):
     context['invalid_repo'] = invalid_repos.keys()
     context['valid_repo'] = valid_repos.keys()
 
-    return render(request, 'gitlight/index.html', context)
+    return render(request, 'gitlight/repo_list.html', context)
+
+
+def repo_contents(request, repo_name):
+    repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
+    try:
+        blob_or_tree = repo.get_blob_or_tree(commit, path)
+    except KeyError:
+        raise NotFound("File not found")
+
+    history = repo.history(commit)
+    root_tree = repo.listdir(commit, path)
+
+    # send context
+    context = {
+        'repo': repo,
+        'rev': rev,
+        'branches': repo.get_branch_names(exclude=rev),
+        'tags': repo.get_tag_names(),
+        'path': path,
+        'blob_or_tree': blob_or_tree,
+        'history': history,
+        'root_tree': root_tree
+    }
+    return render(request, 'gitlight/repo_page.html', context)
