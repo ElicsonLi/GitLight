@@ -15,12 +15,12 @@
 <ul>
     {% for commit in history %}
         <li>
-            <p>{{ commit.message }}</p>
+            <p>{{ commit.message}}</p>
             <p>
                 {{ commit.author }}
             </p>
             <p>
-                {{ commit.commit_time }}
+                {{ commit.commit_time}}
             </p>
 
         </li>
@@ -30,13 +30,15 @@
 <h1>Directory</h1>
 <ul>
     {% for name, fullpath in root_tree.dirs %}
-        <li>{{ name }}</li>
+    {% if fullpath %}
+        <li> <a href="{% url 'repo_contents' repo.name fullpath%}" id = "test">{{ name }}</a></li>
+    {% endif %}
     {% endfor %}
     {% for name, fullpath in root_tree.submodules %}
-        <li>{{ name }}</li>
+        <li>{{ name }} </li>
     {% endfor %}
     {% for name, fullpath in root_tree.files %}
-        <li>{{ name }}</li>
+        <li>{{ name }} </li>
     {% endfor %}
 </ul>
 

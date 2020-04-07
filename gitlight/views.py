@@ -22,15 +22,19 @@ def repo_list(request):
     return render(request, 'gitlight/repo_list.html', context)
 
 
-def repo_contents(request, repo_name):
+def repo_contents(request, repo_name,repo_path=None):
     repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
     try:
-        blob_or_tree = repo.get_blob_or_tree(commit, path)
+        blob_or_tree = repo.get_blob_or_tree(commit=commit, path=path)
     except KeyError:
         raise NotFound("File not found")
 
-    history = repo.history(commit)
-    root_tree = repo.listdir(commit, path)
+    history = repo.history(commit=commit, path=repo_path)
+    if repo_path == None:
+        root_tree = repo.listdir(commit=commit, path=path)
+    else:
+        root_tree = repo.listdir(commit=commit, path=repo_path)
+
 
     # send context
     context = {
@@ -43,4 +47,5 @@ def repo_contents(request, repo_name):
         'history': history,
         'root_tree': root_tree
     }
+    print(history[0].message)
     return render(request, 'gitlight/repo_page.html', context)
