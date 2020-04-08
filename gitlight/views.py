@@ -42,3 +42,6 @@ def repo_contents(request, repo_name,repo_path=None):
         'root_tree': root_tree
     }
     return render(request, 'gitlight/repo_page.html', context)
+
+def file_view():
+    return

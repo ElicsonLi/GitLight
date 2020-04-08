@@ -7,16 +7,18 @@ register = template.Library()
 
 
 @register.filter(name='shorten_commit_content')
-@stringfilter
+# @stringfilter
 def shorten_commit_content(msg):
     # remove b' and \n'
-    return msg[2:-3]
+    # print(msg.split('\\n')[0])
+    return msg.decode("utf-8")
 
 
 @register.filter(name='unix_time_to_datatime')
 def unix_time_to_datatime(timestamp):
     dt_object = datetime.fromtimestamp(timestamp)
     return dt_object
+
 
 @register.filter(name='extract_author_name')
 @stringfilter
