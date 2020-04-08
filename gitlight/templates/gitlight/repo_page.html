@@ -11,16 +11,16 @@
 <p>path: {{ path }}</p>
 <p>bolb_or_tree: {{ blob_or_tree }}</p>
 
-
+{% load custom_filters %}
 <ul>
     {% for commit in history %}
         <li>
-            <p>{{ commit.message}}</p>
+            <p>{{ commit.message|shorten_commit_content}}</p>
             <p>
-                {{ commit.author }}
+                {{ commit.author|extract_author_name }}
             </p>
             <p>
-                {{ commit.commit_time}}
+                {{ commit.commit_time|unix_time_to_datatime}}
             </p>
 
         </li>

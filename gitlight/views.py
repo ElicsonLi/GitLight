@@ -1,15 +1,9 @@
 from django.shortcuts import render, Http404
 
-from gitlight.gitop import repo
+from gitlight.gitop import repo, utils
 from gitlight.utils import *
 from gitlight import REPO_PATH
 
-
-# def test(request):
-#     context = {}
-#     r = repo.FancyRepo('.')
-#     context['tmp'] = r.get_default_branch()
-#     return render(request, 'gitlight/index.html', context)
 
 def repo_list(request):
     """Show a list of all repos and can be sorted by last update."""
@@ -29,12 +23,12 @@ def repo_contents(request, repo_name,repo_path=None):
     except KeyError:
         raise NotFound("File not found")
 
+    # Support for directory display
     history = repo.history(commit=commit, path=repo_path)
     if repo_path == None:
         root_tree = repo.listdir(commit=commit, path=path)
     else:
         root_tree = repo.listdir(commit=commit, path=repo_path)
-
 
     # send context
     context = {
@@ -47,5 +41,4 @@ def repo_contents(request, repo_name,repo_path=None):
         'history': history,
         'root_tree': root_tree
     }
-    print(history[0].message)
     return render(request, 'gitlight/repo_page.html', context)
