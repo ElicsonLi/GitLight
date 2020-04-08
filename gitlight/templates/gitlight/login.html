@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <a href="{% url 'register' %}">
+        <button id="id_register_link" class="dropbtn">Register</button>
+    </a>
+</div>
+
+<h2><span id="id_name_of_page">Login to GitLight:</span></h2>
+
+<form method="post" action="{% url 'login' %}" class="content">
+    <table class="content">
+        {{ form }}
+    </table>
+    {% csrf_token %}
+    <p></p>
+    <button type="submit" id="id_login_button" class="btn btn-dark">Take me in</button>
+</form>
+
+</body>
+</html>

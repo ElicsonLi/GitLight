@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block user-info %}
+    <div>
+        <a href="{% url 'login' %}">
+            <button id="id_login_link" class="dropbtn">Login</button>
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <p class="big-heading"><span id="id_name_of_page">Register for the Blogo:<span></p>
+
+    <form method="post" action="{% url 'register' %}" class="content">
+        <table class="content">
+            {% for field in form.visible_fields %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                    <td class="error">
+                        {% for error in field.errors %} {{ error }} {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Register</button>
+    </form>
+
+    {% for error in form.non_field_errors %}
+        <p class="error">
+            {{ error }}
+        </p>
+    {% endfor %}
+
+{% endblock %}
+
+</body>
+</html>

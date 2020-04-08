@@ -17,10 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from gitlight import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gitlight/', include('gitlight.urls')),
-    # TODO: Delete it after debugging
-    path('', views.repo_list),
+    path('', views.login_action),
 ]
