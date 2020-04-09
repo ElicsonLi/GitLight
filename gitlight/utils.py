@@ -1,8 +1,11 @@
 """This file contains some helper functions"""
+from os import mkdir,chdir
 import os
+import sys
 
 from gitlight.gitop.repo import FancyRepo, InvalidRepo
 from dulwich.errors import *
+from dulwich.repo import Repo
 from gitlight import REPO_PATH
 
 from werkzeug.wrappers import Response
@@ -78,11 +81,21 @@ def get_repo_rev(repo, rev=None, path=None):
     return repo, rev, path, commit
 
 
+def create_repo(repo_name):
+    """Create a new repo and return to the new repo project"""
+    # chdir(REPO_PATH)
+    path = REPO_PATH+'/'+repo_name
+    try:
+        mkdir(path)
+        new_repo = Repo.init(path)
+        return new_repo
+    except OSError:
+        raise NotFound("Path not legal")
 
 if __name__ == '__main__':
     REPO_PATH_DBG = '../repos'
     print(path_to_paths(REPO_PATH_DBG))
     valid_repos, invalid_repos = load_repos_name(REPO_PATH_DBG)
     print(valid_repos, invalid_repos)
-    repo, rev, path, commit = get_repo_rev('websockets-example', rev = None , path = None)
+    repo, rev, path, commit = get_repo_rev('websockets-example', rev=None, path=None)
     print(commit)

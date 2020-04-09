@@ -48,3 +48,7 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("Username is already taken.")
 
         return username
+
+class CreateRepoForm(forms.Form):
+    repo_name = forms.CharField(max_length=200)
+    # TODO: except handler, What if have same name

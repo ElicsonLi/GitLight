@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 
 from django.urls import reverse
 
@@ -120,3 +120,14 @@ def repo_contents(request, repo_name, repo_path=None):
 
 def file_view():
     return
+
+
+def create_repo_action(request):
+    if request.method == 'GET':
+        raise Http404
+
+    create_repo(request.POST['repo_name'])
+
+
+    return redirect(reverse('repo_list'))
+
