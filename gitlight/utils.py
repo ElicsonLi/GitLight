@@ -78,6 +78,7 @@ def get_repo_rev(repo, rev=None, path=None):
     return repo, rev, path, commit
 
 
+
 if __name__ == '__main__':
     REPO_PATH_DBG = '../repos'
     print(path_to_paths(REPO_PATH_DBG))
