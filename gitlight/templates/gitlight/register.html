@@ -1,70 +1,68 @@
 <!DOCTYPE html>
-{% load static%}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2.min.css" %}">
 </head>
-<body>
-    <div class="container">
+<body class="bg-gradient-primary">
 
-      <div class="card o-hidden border-0 shadow-lg my-5">
+
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
-          <!-- Nested Row within Card Body -->
-          <div class="row">
-            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-            <div class="col-lg-7">
-              <div class="p-5">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
 
-                  {% block content %}
-                      <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                      </div>
-                      <p class="big-heading"><span id="id_name_of_page">Register for the GitLight:<span></p>
+                        {% block content %}
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <p class="big-heading"><span id="id_name_of_page">Register for GitLight:<span></p>
 
-                      <form method="post" action="{% url 'register' %}" class="content">
-                          <table class="content">
-                              {% for field in form.visible_fields %}
-                                  <tr>
-                                      <td>{{ field.label_tag }}</td>
-                                      <td>{{ field }}</td>
-                                      <td class="error">
-                                          {% for error in field.errors %} {{ error }} {% endfor %}
-                                      </td>
-                                  </tr>
-                              {% endfor %}
-                          </table>
-                          {% csrf_token %}
-                          <button type="submit">Register</button>
-                      </form>
+                            <form method="post" action="{% url 'register' %}" class="user">
+                                <table class="content">
+                                    {% for field in form.visible_fields %}
+                                        <tr>
+                                            <td>{{ field.label_tag }}</td>
+                                            <td>{{ field }}</td>
+                                            <td class="error">
+                                                {% for error in field.errors %} {{ error }} {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                            </form>
 
-                      {% for error in form.non_field_errors %}
-                          <p class="error">
-                              {{ error }}
-                          </p>
-                      {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <p class="error">
+                                    {{ error }}
+                                </p>
+                            {% endfor %}
 
-                  {% endblock %}
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-
-                  {% block user-info %}
-                      <div class="text-center">
-                          <a href="{% url 'login' %}"  class="small">
-                              <button id="id_login_link" class="dropbtn">Login</button>
-                          </a>
-                      </div>
-                  {% endblock %}
-              </div>
+                        {% endblock %}
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="forgot-password.html">Forgot Password? This is not working!</a>
+                        </div>
+                        {# Redirect to login #}
+                        <div class="text-center">
+                            <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
-  </div>
+</div>
 </body>
 </html>
