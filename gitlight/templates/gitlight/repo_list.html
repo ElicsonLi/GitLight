@@ -23,5 +23,23 @@
     </li>
  {% endfor %}
 
+{#<h3>Create new repo</h3>#}
+{#<form method="post" action="{% url 'create_repo' %}" class="content">#}
+{#    <table class="content">#}
+{#        {{ form }}#}
+{#    </table>#}
+{#    {% csrf_token %}#}
+{#    <button type="submit" id="id_login_button" class="btn btn-dark">Create</button>#}
+{#</form>#}
+
+<h3>Create new repo</h3>
+
+<form method="post" action="{% url 'create_repo' %}">
+    <label for="repo_name">Create a new Repo: </label>
+    <input id="repo_name" type="text" name="repo_name" value="">
+    <input type="submit" value="Create">
+    {% csrf_token %}
+</form>
+
 </body>
 </html>
