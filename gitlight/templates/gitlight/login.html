@@ -1,27 +1,50 @@
 <!DOCTYPE html>
+{% load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2.min.css" %}">
 </head>
 <body>
+    <div class="container">
 
-<div>
-    <a href="{% url 'register' %}">
-        <button id="id_register_link" class="dropbtn">Register</button>
-    </a>
-</div>
+        <div class="row justify-content-center">
 
-<h2><span id="id_name_of_page">Login to GitLight:</span></h2>
+          <div class="col-xl-10 col-lg-12 col-md-9">
 
-<form method="post" action="{% url 'login' %}" class="content">
-    <table class="content">
-        {{ form }}
-    </table>
-    {% csrf_token %}
-    <p></p>
-    <button type="submit" id="id_login_button" class="btn btn-dark">Take me in</button>
-</form>
-
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                  <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                  <div class="col-lg-6">
+                    <div class="p-5">
+                        <h2><span id="id_name_of_page">Login to GitLight:</span></h2>
+                    </div>
+                    <form method="post" action="{% url 'login' %}" class="content">
+                        <table class="content">
+                            {{ form }}
+                        </table>
+                        {% csrf_token %}
+                        <p></p>
+                        <button type="submit" id="id_login_button" class="btn btn-dark">Take me in</button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                      <a class="small" href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'register' %}">
+                            <button id="id_register_link" class="dropbtn">Register</button>
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
