@@ -1,3 +1,4 @@
+import sys
 from django.shortcuts import render, redirect
 
 from django.urls import reverse
@@ -6,12 +7,24 @@ from gitlight.gitop import repo, utils
 from gitlight.utils import *
 from gitlight import REPO_PATH
 
+
+from gitlight.gitop import markup
+from gitlight.gitop.highlighting import highlight_or_render
+
 # login/ register actions
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from gitlight.forms import LoginForm, RegistrationForm
+
+try:
+    import ctags
+except ImportError:
+    ctags = None
+else:
+    from gitlight.gitop import ctagscache
+    CTAGS_CACHE = ctagscache.CTagsCache()
 
 
 def login_action(request):
@@ -118,5 +131,25 @@ def repo_contents(request, repo_name, repo_path=None):
     return render(request, 'gitlight/repo_page.html', context)
 
 
-def file_view():
-    return
+def file_view(request,repo_name,repo_path=None):
+    repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
+    try:
+        blob_or_tree = repo.get_blob_or_tree(commit=commit, path=repo_path)
+    except KeyError:
+        raise NotFound("File not found")
+    filename = os.path.basename(repo_path)
+    lastindex = repo_path.rfind('/')
+    upperdir = repo_path[:lastindex]
+    root_tree = repo.listdir(commit=commit, path=upperdir)
+    context = {
+        'repo': repo,
+        'rev': rev,
+        'branches': repo.get_branch_names(exclude=rev),
+        'tags': repo.get_tag_names(),
+        'path': path,
+        'blob_or_tree': blob_or_tree,
+        'filename': filename,
+        'render_code' : highlight_or_render(blob_or_tree.data,filename),
+        'root_tree': root_tree
+    }
+    return render(request, 'gitlight/file_view.html', context)

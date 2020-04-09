@@ -5,26 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Repo: {{ repo.name }}</h1>
-<p>rev: {{ rev }}</p>
-<p>branches: {{ branches }}</p>
-<p>path: {{ path }}</p>
-<p>bolb_or_tree: {{ blob_or_tree }}</p>
+    <h1>Repo: {{ repo.name }}</h1>
+    <p>rev: {{ rev }}</p>
+    <p>branches: {{ branches }}</p>
+    <p>path: {{ path }}</p>
+    <p>bolb_or_tree: {{ blob_or_tree }}</p>
 
-{% load custom_filters %}
+
+<h1>File View</h1>
 <ul>
-    {% for commit in history %}
-        <li>
-            <p>{{ commit.message|shorten_commit_content}}</p>
-            <p>
-                {{ commit.author|extract_author_name }}
-            </p>
-            <p>
-                {{ commit.commit_time|unix_time_to_datatime}}
-            </p>
-
-        </li>
-    {% endfor %}
+    {% autoescape off %}
+    {{ render_code }}
+    {% endautoescape %}
 </ul>
 
 <h1>Directory</h1>
@@ -41,7 +33,6 @@
         <li><a href="{% url 'file_view' repo.name fullpath%}" id = "test">{{ name }}{{fullpath}}</a> </li>
     {% endfor %}
 </ul>
-
 
 </body>
 </html>

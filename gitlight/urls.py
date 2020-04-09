@@ -7,5 +7,6 @@ urlpatterns = [
     path('login', views.login_action, name='login'),
     path('register', views.register_action, name='register'),
     path('<str:repo_name>', views.repo_contents, name='repo_contents'),
-    path('<str:repo_name>/<path:repo_path>', views.repo_contents, name='repo_contents')
+    path('tree/<str:repo_name>/<path:repo_path>', views.repo_contents, name='repo_contents'),
+    path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view')
 ]
