@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import sys
 from django.shortcuts import render, redirect
-=======
 from django.shortcuts import render, redirect, Http404
->>>>>>> 439a64bd17213ebb4ce3e8fe756d663c1fdbda49
 
 from django.urls import reverse
 
@@ -21,15 +18,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from gitlight.forms import LoginForm, RegistrationForm
-
-try:
-    import ctags
-except ImportError:
-    ctags = None
-else:
-    from gitlight.gitop import ctagscache
-    CTAGS_CACHE = ctagscache.CTagsCache()
-
 
 def login_action(request):
     context = {}
@@ -135,7 +123,6 @@ def repo_contents(request, repo_name, repo_path=None):
     return render(request, 'gitlight/repo_page.html', context)
 
 
-<<<<<<< HEAD
 def file_view(request,repo_name,repo_path=None):
     repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
     try:
@@ -158,10 +145,6 @@ def file_view(request,repo_name,repo_path=None):
         'root_tree': root_tree
     }
     return render(request, 'gitlight/file_view.html', context)
-=======
-def file_view():
-    return
-
 
 def create_repo_action(request):
     if request.method == 'GET':
@@ -172,4 +155,3 @@ def create_repo_action(request):
 
     return redirect(reverse('repo_list'))
 
->>>>>>> 439a64bd17213ebb4ce3e8fe756d663c1fdbda49
