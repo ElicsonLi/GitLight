@@ -61,23 +61,22 @@ def get_repo_rev(repo, rev=None, path=None):
     # if branch not specify
     if rev is None:
         rev = repo.get_default_branch()
-        if rev is None:
-            raise NotFound("Empty repository")
+        commit = None
 
     # Try to get default commit
-    i = len(rev)
-    while i > 0:
-        try:
-            commit = repo.get_commit(rev[:i])
-            path = rev[i:].strip("/")
-            rev = rev[:i]
-        except (KeyError, IOError):
-            i = rev.rfind("/", 0, i)
+    if rev is not None:
+        i = len(rev)
+        while i > 0:
+            try:
+                commit = repo.get_commit(rev[:i])
+                path = rev[i:].strip("/")
+                rev = rev[:i]
+            except (KeyError, IOError):
+                i = rev.rfind("/", 0, i)
+            else:
+                break
         else:
-            break
-    else:
-        raise NotFound("No such commit %r" % rev)
-
+            raise NotFound("No such commit %r" % rev)
     return repo, rev, path, commit
 
 

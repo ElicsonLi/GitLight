@@ -97,17 +97,25 @@ def repo_list(request):
 @login_required
 def repo_contents(request, repo_name, repo_path=None):
     repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
-    try:
-        blob_or_tree = repo.get_blob_or_tree(commit=commit, path=path)
-    except KeyError:
-        raise NotFound("File not found")
 
-    # Support for directory display
-    history = repo.history(commit=commit, path=repo_path)
-    if repo_path == None:
-        root_tree = repo.listdir(commit=commit, path=path)
-    else:
-        root_tree = repo.listdir(commit=commit, path=repo_path)
+    if commit is not None:
+        try:
+            blob_or_tree = repo.get_blob_or_tree(commit=commit, path=path)
+        except KeyError:
+            raise NotFound("File not found")
+
+        # Support for directory display
+        history = repo.history(commit=commit, path=repo_path)
+        if repo_path is None:
+            root_tree = repo.listdir(commit=commit, path=path)
+        else:
+            root_tree = repo.listdir(commit=commit, path=repo_path)
+
+    if rev is None:
+        context = {
+            'path': 'This is an empty dir',
+        }
+        return render(request, 'gitlight/repo_page.html', context)
 
     # send context
     context = {
@@ -154,6 +162,7 @@ def create_repo_action(request):
         raise Http404
 
     create_repo(request.POST['repo_name'])
+
 
 
     return redirect(reverse('repo_list'))
