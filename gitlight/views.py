@@ -131,7 +131,10 @@ def file_view(request,repo_name,repo_path=None):
         raise NotFound("File not found")
     filename = os.path.basename(repo_path)
     lastindex = repo_path.rfind('/')
-    upperdir = repo_path[:lastindex]
+    if(lastindex < 0):
+        upperdir = path
+    else:
+        upperdir = repo_path[:lastindex]
     root_tree = repo.listdir(commit=commit, path=upperdir)
     context = {
         'repo': repo,

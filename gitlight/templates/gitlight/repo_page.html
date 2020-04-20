@@ -38,7 +38,7 @@
         <li>{{ name }} </li>
     {% endfor %}
     {% for name, fullpath in root_tree.files %}
-        <li><a href="{% url 'file_view' repo.name fullpath%}" id = "test">{{ name }}{{fullpath}}</a> </li>
+        <li><a href="{% url 'file_view' repo.name fullpath%}" id = "test">{{ name }}</a> </li>
     {% endfor %}
 </ul>
 
