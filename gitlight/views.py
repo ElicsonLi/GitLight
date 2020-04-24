@@ -181,7 +181,7 @@ def issue_list_page(request, repo_name):
     try:
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
-        raise Http404
+        return HttpResponse("Repo not created on this website!")
     issues = Issue.objects.filter(belong_to=belong_to).all()
     context = {'repo_name': repo_name,
                'issues': issues}
@@ -237,6 +237,13 @@ def issue_detail_page(request, issue_id):
     editor = IssueForm()
     # Get all replies
     replies = Reply.objects.filter(belong_to=issue).all()
+    # Format all replies
+    for reply in replies:
+        reply.content = markdown.markdown(reply.content, extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
     context = {'issue': issue,
                'editor': editor,
                'replies': replies}

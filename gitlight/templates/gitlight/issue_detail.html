@@ -8,7 +8,7 @@
 <body>
 <h1>{{ issue.title }}</h1>
 <h2>{{ issue.content | safe }}</h2>
-<h2>{{ issue.solved_state }}</h2>
+{#<h2>{{ issue.solved_state }}</h2>#}
 
 <h1>Replies</h1>
 {% for reply in replies %}
