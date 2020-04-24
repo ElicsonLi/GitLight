@@ -6,7 +6,7 @@ from django.core.exceptions import *
 from gitlight.models import RepoModel, Issue, Reply
 from gitlight.gitop import repo, utils
 from gitlight.utils import *
-from gitlight import REPO_PATH
+from gitlight import REPO_PATH, IP_ADDR
 import markdown
 
 from gitlight.gitop import markup
@@ -129,7 +129,8 @@ def repo_contents(request, repo_name, repo_path=None):
         'commit': commit,
         'blob_or_tree': blob_or_tree,
         'history': history,
-        'root_tree': root_tree
+        'root_tree': root_tree,
+        'ip_addr': IP_ADDR,
     }
     print(commit.id)
     return render(request, 'gitlight/repo_page.html', context)
