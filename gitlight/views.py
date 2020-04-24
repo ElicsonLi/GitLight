@@ -124,10 +124,12 @@ def repo_contents(request, repo_name, repo_path=None):
         'branches': repo.get_branch_names(exclude=rev),
         'tags': repo.get_tag_names(),
         'path': path,
+        'commit':commit,
         'blob_or_tree': blob_or_tree,
         'history': history,
         'root_tree': root_tree
     }
+    print(commit.id)
     return render(request, 'gitlight/repo_page.html', context)
 
 
@@ -178,3 +180,14 @@ def create_issue(request):
     # Create issue under a repo
 
     # return redirect(reverse('repo_list'))
+
+def view_diff(request, repo_name,commit_id):
+    repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
+    this_commit = repo.get_commit(commit_id)
+    summary,file_changes = repo.commit_diff(this_commit)
+    context = {
+        'repo': repo,
+        'file_changes': file_changes,
+        'summary': summary
+    }
+    return render(request, 'gitlight/diff_view.html', context)

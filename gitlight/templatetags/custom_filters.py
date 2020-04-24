@@ -11,7 +11,11 @@ register = template.Library()
 def shorten_commit_content(msg):
     # remove b' and \n'
     # print(msg.split('\\n')[0])
-    return msg.decode("utf-8")
+    try:
+        return msg.decode("utf-8")
+    except:
+        return msg
+    # return msg.decode("utf-8")
 
 
 @register.filter(name='unix_time_to_datatime')
