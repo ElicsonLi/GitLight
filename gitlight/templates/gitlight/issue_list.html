@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>This is a test issue page for {{ repo_name }}</h1>
+
+<a href="{% url 'create_issue_page' repo_name %}">Create Issue</a>
+
+{% for issue in issues %}
+    <p>{{ issue.input_text }}</p>
+{% endfor %}
+
+</body>
+</html>

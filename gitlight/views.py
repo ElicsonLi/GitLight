@@ -2,7 +2,8 @@ import sys
 from django.shortcuts import render, redirect, Http404
 
 from django.urls import reverse
-from gitlight.models import RepoModel
+from django.core.exceptions import *
+from gitlight.models import RepoModel, Issue
 
 from gitlight.gitop import repo, utils
 from gitlight.utils import *
@@ -114,6 +115,7 @@ def repo_contents(request, repo_name, repo_path=None):
     if rev is None:
         context = {
             'path': 'This is an empty dir',
+            'repo': repo
         }
         return render(request, 'gitlight/repo_page.html', context)
 
@@ -171,10 +173,31 @@ def create_repo_action(request):
     return redirect(reverse('repo_list'))
 
 
-def create_issue(request):
-    raise NotImplementedError
-    # if request.method == 'GET':
-    #     raise Http404
-    # Create issue under a repo
+def issue_page(request, repo_name):
+    try:
+        belong_to = RepoModel.objects.get(name=repo_name)
+    except ObjectDoesNotExist:
+        raise Http404
+    issues = Issue.objects.filter(belong_to=belong_to).all()
+    context = {'repo_name': repo_name,
+               'issues': issues}
+    return render(request, 'gitlight/issue_list.html', context)
 
-    # return redirect(reverse('repo_list'))
+
+def create_issue(request, repo_name):
+    if request.method == 'GET':
+        raise Http404
+    # Create issue under a repo
+    try:
+        belong_to = RepoModel.objects.get(name=repo_name)
+    except ObjectDoesNotExist:
+        raise Http404
+    new_issue = Issue(belong_to=belong_to, input_text=request.POST['issue_text'])
+    new_issue.save()
+
+    return redirect(reverse('issue_page', args=[repo_name]))
+
+
+def create_issue_page(request, repo_name):
+    context = {'repo_name': repo_name}
+    return render(request, 'gitlight/create_issue_page.html', context)
