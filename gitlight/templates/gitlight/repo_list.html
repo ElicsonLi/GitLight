@@ -204,10 +204,14 @@
                                     <div class="flex-div">
                                         <div class="">
                                             <form method="post" action="{% url 'create_repo' %}">
-                                                <label for="repo_name">New Repo: </label>
-                                                <br>
-                                                <input id="repo_name" type="text" name="repo_name" value="">
-                                                <input type="submit" value="Create">
+                                                <div class="form-group">
+                                                    <label for="repo_name">New Repo: </label>
+                                                    <input id="repo_name" type="text" name="repo_name" value=""
+                                                           class="form-control form-control-user"
+                                                           placeholder="New repo name">
+                                                </div>
+                                                <input type="submit" value="Create"
+                                                       class="btn btn-success">
                                                 {% csrf_token %}
                                             </form>
                                         </div>
