@@ -8,10 +8,11 @@ urlpatterns = [
     path('register', views.register_action, name='register'),
     path('create_repo', views.create_repo_action, name='create_repo'),
     path('<str:repo_name>', views.repo_contents, name='repo_contents'),
-    path('issue/<str:repo_name>', views.issue_page, name='issue_page'),
+    path('issue/<str:repo_name>', views.issue_list_page, name='issue_list_page'),
+    path('issue_detail/<int:issue_id>', views.issue_detail_page, name='issue_detail_page'),
     path('create_issue_page/<str:repo_name>', views.create_issue_page, name='create_issue_page'),
     path('create_issue/<str:repo_name>', views.create_issue, name='create_issue'),
     path('tree/<str:repo_name>/<path:repo_path>', views.repo_contents, name='repo_contents'),
     path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view'),
-    path('commit/<str:repo_name>/<str:commit_id>',views.view_diff,name='view_diff'),
+    path('commit/<str:repo_name>/<str:commit_id>', views.view_diff, name='view_diff'),
 ]

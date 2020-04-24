@@ -10,7 +10,7 @@
 <a href="{% url 'create_issue_page' repo_name %}">Create Issue</a>
 
 {% for issue in issues %}
-    <p>{{ issue.input_text }}</p>
+    <a href="{% url 'issue_detail_page' issue.id %}">{{ issue.title }}</a>
 {% endfor %}
 
 </body>

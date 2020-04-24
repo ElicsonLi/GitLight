@@ -22,8 +22,11 @@ class RepoModel(models.Model):
 class Issue(models.Model):
     belong_to = models.ForeignKey(
         'RepoModel', default=None, on_delete=models.PROTECT)
+    # Title of Issue
+    title = models.CharField(
+        max_length=100)
     # Content of issue
-    input_text = models.CharField(
+    content = models.CharField(
         max_length=10000)
 
     # Indicate whether a issue has been solved
@@ -38,3 +41,5 @@ class Issue(models.Model):
         choices=SOLVED_CHOICES,
         default=UNSOLVED,
     )
+
+

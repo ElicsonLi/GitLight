@@ -126,7 +126,7 @@ def repo_contents(request, repo_name, repo_path=None):
         'branches': repo.get_branch_names(exclude=rev),
         'tags': repo.get_tag_names(),
         'path': path,
-        'commit':commit,
+        'commit': commit,
         'blob_or_tree': blob_or_tree,
         'history': history,
         'root_tree': root_tree
@@ -175,7 +175,7 @@ def create_repo_action(request):
     return redirect(reverse('repo_list'))
 
 
-def issue_page(request, repo_name):
+def issue_list_page(request, repo_name):
     try:
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
@@ -194,24 +194,30 @@ def create_issue(request, repo_name):
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
         raise Http404
-    new_issue = Issue(belong_to=belong_to, input_text=request.POST['issue_text'])
+    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['issue_text'])
     new_issue.save()
 
-    return redirect(reverse('issue_page', args=[repo_name]))
+    return redirect(reverse('issue_list_page', args=[repo_name]))
 
 
 def create_issue_page(request, repo_name):
     context = {'repo_name': repo_name}
     return render(request, 'gitlight/create_issue_page.html', context)
-    # return redirect(reverse('repo_list'))
 
-def view_diff(request, repo_name,commit_id):
+
+def view_diff(request, repo_name, commit_id):
     repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
     this_commit = repo.get_commit(commit_id)
-    summary,file_changes = repo.commit_diff(this_commit)
+    summary, file_changes = repo.commit_diff(this_commit)
     context = {
         'repo': repo,
         'file_changes': file_changes,
         'summary': summary
     }
     return render(request, 'gitlight/diff_view.html', context)
+
+
+def issue_detail_page(request, issue_id):
+    issue = Issue.objects.get(id=issue_id)
+    context = {'issue': issue}
+    return render(request, 'gitlight/issue_detail.html', context)
