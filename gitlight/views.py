@@ -216,7 +216,8 @@ def view_diff(request, repo_name, commit_id):
     context = {
         'repo': repo,
         'file_changes': file_changes,
-        'summary': summary
+        'summary': summary,
+        'thiscomment':this_commit,
     }
     return render(request, 'gitlight/diff_view.html', context)
 
