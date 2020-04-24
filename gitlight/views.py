@@ -115,7 +115,8 @@ def repo_contents(request, repo_name, repo_path=None):
     if rev is None:
         context = {
             'path': 'This is an empty dir',
-            'repo': repo
+            'repo': repo,
+            'rev': rev,
         }
         return render(request, 'gitlight/repo_page.html', context)
 

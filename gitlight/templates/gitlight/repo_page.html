@@ -129,138 +129,152 @@
             </nav>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
-            <div class="container-fluid">
-                <!-- Page Heading -->
+            {% if rev is not None %}
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <header class="margin-top-header">
+                        <div class="profile-photo">
+                            <img src="profile-img.png" alt="" class="rounded-circle">
+                        </div>
+                        <h1 class="text-center margin-top-text">{{ repo.name }}</h1>
+                        <div class="text-center margin-top-text">
+                            Clone URL: git@{{ ip_addr }}:{{ repo.path }}
+                        </div>
+                    </header>
+                    {# Repo infos #}
+                    <div class="row">
+                        <div class="col margin-top-text">
+                            <!-- Custom Text Color Utilities -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h2 class="m-0 font-weight-bold text-primary">Directory</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="flex-div">
+                                        <!-- <div class="flex-basis">
+                                            EMAIL
+                                        </div> -->
+                                        <div class="">
+                                            <ul>
+                                                {% for name, fullpath in root_tree.dirs %}
+                                                    {% if fullpath %}
+                                                        <li><a href="{% url 'repo_contents' repo.name fullpath %}"
+                                                               id="test">{{ name }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for name, fullpath in root_tree.submodules %}
+                                                    <li>{{ name }} </li>
+                                                {% endfor %}
+                                                {% for name, fullpath in root_tree.files %}
+                                                    <li><a href="{% url 'file_view' repo.name fullpath %}"
+                                                           id="test">{{ name }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {# Second Column #}
+                        <div class="col  margin-top-text">
+                            <!-- Custom Text Color Utilities -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h2 class="m-0 font-weight-bold text-primary">Commit history on {{ rev }}</h2>
+                                </div>
+                                {#                            <div class="card-body">#}
+                                {#                                <div class="flex-div">#}
+                                {#                                    <div class="flex-basis">#}
+                                {#                                        rev:#}
+                                {#                                    </div>#}
+                                {#                                    <div class="">#}
+                                {#                                        {{ rev }}#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            </div>#}
+                                {#                            <div class="split-line"></div>#}
+                                {#                            <div class="card-body">#}
+                                {#                                <div class="flex-div">#}
+                                {#                                    <div class="flex-basis">#}
+                                {#                                        branches:#}
+                                {#                                    </div>#}
+                                {#                                    <div class="">#}
+                                {#                                        {{ branches }}#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            </div>#}
+                                {#                            <div class="split-line"></div>#}
+                                {#                            <div class="card-body">#}
+                                {#                                <div class="flex-div">#}
+                                {#                                    <div class="flex-basis">#}
+                                {#                                        path:#}
+                                {#                                    </div>#}
+                                {#                                    <div class="">#}
+                                {#                                        {{ path }}#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            </div>#}
+                                {#                            <div class="split-line"></div>#}
+                                {#                            <div class="card-body">#}
+                                {#                                <div class="flex-div">#}
+                                {#                                    <div class="flex-basis">#}
+                                {#                                        bolb_or_tree:#}
+                                {#                                    </div>#}
+                                {#                                    <div class="">#}
+                                {#                                        {{ blob_or_tree }}#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            </div>#}
+                                <div class="card-body">
+                                    <div class="flex-div">
+                                        {#                                    <div class="flex-basis">#}
+                                        {#                                        commit history:#}
+                                        {#                                    </div>#}
+                                        <div class="">
+                                            {% load custom_filters %}
+                                            <ul>
+                                                {% for commit in history %}
+                                                    <li>
+                                                        <p>
+                                                            <a href="{% url 'view_diff' repo.name commit.id|shorten_commit_content %}"
+                                                               id="test">
+                                                                {{ commit.message|shorten_commit_content }}</a></p>
+                                                        <p>
+                                                            {{ commit.author|extract_author_name }}
+                                                        </p>
+                                                        <p>
+                                                            {{ commit.commit_time|unix_time_to_datatime }}
+                                                        </p>
+
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {#                        </div>#}
+                        </div>
+                        <!-- Second Col -->
+
+                    </div>
+                    {# Issue page #}
+                    <div><a href="{% url 'issue_list_page' repo.name %}">Issue for {{ repo.name }}</a></div>
+                </div>
+            {% else %}
+
                 <header class="margin-top-header">
                     <div class="profile-photo">
                         <img src="profile-img.png" alt="" class="rounded-circle">
                     </div>
                     <h1 class="text-center margin-top-text">{{ repo.name }}</h1>
                     <div class="text-center margin-top-text">
-                        Clone URL: git@{{ ip_addr }}:{{ repo.path }}
+                        <p>Oops, this repo is empty! Clone and add some file to continue.</p>
+                        <p>Clone URL: git@{{ ip_addr }}:{{ repo.path }}</p>
                     </div>
                 </header>
-                {# Repo infos #}
-                <div class="row">
-                    <div class="col margin-top-text">
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Directory</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="flex-div">
-                                    <!-- <div class="flex-basis">
-                                        EMAIL
-                                    </div> -->
-                                    <div class="">
-                                        <ul>
-                                            {% for name, fullpath in root_tree.dirs %}
-                                                {% if fullpath %}
-                                                    <li><a href="{% url 'repo_contents' repo.name fullpath %}"
-                                                           id="test">{{ name }}</a></li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for name, fullpath in root_tree.submodules %}
-                                                <li>{{ name }} </li>
-                                            {% endfor %}
-                                            {% for name, fullpath in root_tree.files %}
-                                                <li><a href="{% url 'file_view' repo.name fullpath %}"
-                                                       id="test">{{ name }}</a></li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    {# Second Column #}
-                    <div class="col  margin-top-text">
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Commit history on {{ rev }}</h2>
-                            </div>
-{#                            <div class="card-body">#}
-{#                                <div class="flex-div">#}
-{#                                    <div class="flex-basis">#}
-{#                                        rev:#}
-{#                                    </div>#}
-{#                                    <div class="">#}
-{#                                        {{ rev }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="split-line"></div>#}
-{#                            <div class="card-body">#}
-{#                                <div class="flex-div">#}
-{#                                    <div class="flex-basis">#}
-{#                                        branches:#}
-{#                                    </div>#}
-{#                                    <div class="">#}
-{#                                        {{ branches }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="split-line"></div>#}
-{#                            <div class="card-body">#}
-{#                                <div class="flex-div">#}
-{#                                    <div class="flex-basis">#}
-{#                                        path:#}
-{#                                    </div>#}
-{#                                    <div class="">#}
-{#                                        {{ path }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="split-line"></div>#}
-{#                            <div class="card-body">#}
-{#                                <div class="flex-div">#}
-{#                                    <div class="flex-basis">#}
-{#                                        bolb_or_tree:#}
-{#                                    </div>#}
-{#                                    <div class="">#}
-{#                                        {{ blob_or_tree }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-                            <div class="card-body">
-                                <div class="flex-div">
-{#                                    <div class="flex-basis">#}
-{#                                        commit history:#}
-{#                                    </div>#}
-                                    <div class="">
-                                        {% load custom_filters %}
-                                        <ul>
-                                            {% for commit in history %}
-                                                <li>
-                                                    <p>
-                                                        <a href="{% url 'view_diff' repo.name commit.id|shorten_commit_content %}"
-                                                           id="test">
-                                                            {{ commit.message|shorten_commit_content }}</a></p>
-                                                    <p>
-                                                        {{ commit.author|extract_author_name }}
-                                                    </p>
-                                                    <p>
-                                                        {{ commit.commit_time|unix_time_to_datatime }}
-                                                    </p>
-
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {#                        </div>#}
-                    </div>
-                    <!-- Second Col -->
-
-                </div>
-                {# Issue page #}
-                <div><a href="{% url 'issue_list_page' repo.name %}">Issue for {{ repo.name }}</a></div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>
