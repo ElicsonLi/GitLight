@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from mdeditor.fields import MDTextField
 
 
 # Create your models here.
@@ -26,8 +27,7 @@ class Issue(models.Model):
     title = models.CharField(
         max_length=100)
     # Content of issue
-    content = models.CharField(
-        max_length=10000)
+    content = MDTextField()
 
     # Indicate whether a issue has been solved
     SOLVED = 'T'

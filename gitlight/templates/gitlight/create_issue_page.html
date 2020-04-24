@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {{ editor.media }}
 </head>
 <body>
 
-<form method="post" action="{% url 'create_issue' repo_name %}">
-    <label for="repo_name">Create an issue: </label>
-    <input id="repo_name" type="text" name="issue_title" value="">
-    <br>
-    <input id="repo_name" type="text" name="issue_text" value="">
-    <input type="submit" value="Create">
-    {% csrf_token %}
-</form>
+{#<form method="post" action="{% url 'create_issue' repo_name %}">#}
+{#    <label for="repo_name">Create an issue: </label>#}
+{#    <input id="repo_name" type="text" name="issue_title" value="">#}
+{#    <br>#}
+{#    <input id="repo_name" type="text" name="issue_text" value="">#}
+{#    <input type="submit" value="Create">#}
+{#    {% csrf_token %}#}
+{#</form>#}
+
+<div class="editor">
+    <form method="post" action="{% url 'create_issue' repo_name %}">
+        <label for="title">Title:</label>
+        {{ editor.issue_title }}
+        <br>
+        <label for="content">Content:</label>
+        {{ editor.content }}
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 </body>
 </html>

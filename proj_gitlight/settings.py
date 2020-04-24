@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mdeditor', # Support for markdown editor
     'gitlight',
     'django.contrib.admin',
     'django.contrib.auth',

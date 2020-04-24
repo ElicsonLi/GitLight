@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from mdeditor.fields import MDTextFormField
 
 
 class LoginForm(forms.Form):
@@ -52,3 +53,7 @@ class RegistrationForm(forms.Form):
 class CreateRepoForm(forms.Form):
     repo_name = forms.CharField(max_length=200)
     # TODO: except handler, What if have same name
+
+class IssueForm(forms.Form):
+    issue_title = forms.CharField()
+    content = MDTextFormField()

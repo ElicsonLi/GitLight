@@ -1,13 +1,13 @@
 import sys
-from django.shortcuts import render, redirect, Http404
+from django.shortcuts import render, redirect, Http404, HttpResponse
 
 from django.urls import reverse
 from django.core.exceptions import *
 from gitlight.models import RepoModel, Issue
-
 from gitlight.gitop import repo, utils
 from gitlight.utils import *
 from gitlight import REPO_PATH
+import markdown
 
 from gitlight.gitop import markup
 from gitlight.gitop.highlighting import highlight_or_render
@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
-from gitlight.forms import LoginForm, RegistrationForm
+from gitlight.forms import LoginForm, RegistrationForm, IssueForm
 
 
 def login_action(request):
@@ -194,14 +194,16 @@ def create_issue(request, repo_name):
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
         raise Http404
-    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['issue_text'])
+    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['content'])
     new_issue.save()
 
     return redirect(reverse('issue_list_page', args=[repo_name]))
 
 
 def create_issue_page(request, repo_name):
-    context = {'repo_name': repo_name}
+    form = IssueForm()
+    context = {'repo_name': repo_name,
+               'editor': form}
     return render(request, 'gitlight/create_issue_page.html', context)
 
 
@@ -218,6 +220,16 @@ def view_diff(request, repo_name, commit_id):
 
 
 def issue_detail_page(request, issue_id):
-    issue = Issue.objects.get(id=issue_id)
+    # issue = Issue.objects.get(id=issue_id)
+    # context = {'issue': issue}
+    try:
+        issue = Issue.objects.get(pk=int(issue_id))
+    except:
+        return HttpResponse('No such issue')
+    issue.content = markdown.markdown(issue.content, extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ])
     context = {'issue': issue}
     return render(request, 'gitlight/issue_detail.html', context)
