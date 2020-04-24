@@ -1,0 +1,62 @@
+/* Commit View */
+.full-commit { width: 100% !important; margin-top: 10px; }
+
+.full-commit .commit { padding: 15px 20px; }
+.full-commit .commit .line1 { padding-bottom: 5px; }
+.full-commit .commit:hover .line1 { text-decoration: none; }
+.full-commit .commit .line2 > span { float: left; }
+
+.full-commit .summary { color: #737373; font-size: 80%; margin-top: 25px; }
+.full-commit .summary .additions { color: #008800; }
+.full-commit .summary .deletions { color: #ee4444; }
+
+.full-commit .file.collapsed > table { display: none; }
+
+.diff { font-family: monospace; }
+.diff .filename {
+  padding: 8px 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  margin-top: 25px;
+}
+.diff .filename del { color: #999; }
+.diff .filename .summary { float: left; margin: -4px 15px 0 -5px; font-size: 80%; }
+.diff .filename .summary .additions { color: green; }
+.diff .filename .summary .deletions{ color: red; }
+
+.diff .togglers { float: right; }
+.diff .togglers a { opacity: 0.5; }
+.diff .file:not(.collapsed) .togglers .expand   { display: none; }
+.diff .file.collapsed       .togglers .collapse { display: none; }
+
+.diff table, .diff .emptydiff {
+  border: 1px solid #e0e0e0;
+  border-top: 0;
+  background-color: #fdfdfd;
+  display: block;
+}
+.diff .emptydiff {
+  padding: 7px 10px;
+}
+.diff td {
+  padding: 0;
+  border-left: 1px solid #e0e0e0;
+}
+.diff td .line { padding: 1px 10px; display: block; min-height: 1.2em; white-space: pre-wrap; }
+.diff .linenos { font-size: 85%; padding: 0; vertical-align: top; }
+.diff .linenos a { display: block; padding-top: 1px; padding-bottom: 1px; }
+.diff td + td + td { width: 100%; }
+.diff tr:first-of-type td { padding-top: 7px; }
+.diff tr:last-of-type td { padding-bottom: 7px; }
+.diff table .del { background-color: #ffdddd; }
+.diff table .add { background-color: #ddffdd; }
+.diff table .no-newline-marker { font-size: 50%; margin-left: 5px; color: red; }
+.diff table del { background-color: #ee9999; text-decoration: none; }
+.diff table ins { background-color: #99ee99; text-decoration: none; }
+.diff .sep > td {
+  height: 1.2em;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+}
+.diff .sep:hover > td { background-color: #f9f9f9; }

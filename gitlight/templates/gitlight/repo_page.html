@@ -204,7 +204,9 @@
                                         <ul>
                                             {% for commit in history %}
                                                 <li>
-                                                    <p>{{ commit.message|shorten_commit_content }}</p>
+                                                    <p><a href="{% url 'view_diff' repo.name commit.id|shorten_commit_content %}"
+                                                        id="test">
+                                                        {{ commit.message|shorten_commit_content }}</a></p>
                                                     <p>
                                                         {{ commit.author|extract_author_name }}
                                                     </p>

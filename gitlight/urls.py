@@ -12,5 +12,6 @@ urlpatterns = [
     path('create_issue_page/<str:repo_name>', views.create_issue_page, name='create_issue_page'),
     path('create_issue/<str:repo_name>', views.create_issue, name='create_issue'),
     path('tree/<str:repo_name>/<path:repo_path>', views.repo_contents, name='repo_contents'),
-    path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view')
+    path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view'),
+    path('commit/<str:repo_name>/<str:commit_id>',views.view_diff,name='view_diff'),
 ]

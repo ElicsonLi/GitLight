@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "gitlight/css/diff.css" %}">
+    <script src="{% static "gitlight/js/diff.js" %}"> </script>
+</head>
+<body>
+
+
+{% load custom_filters %}
+<div class=diff>
+    {% for file in file_changes %}
+      <div class=file>
+        {% with fileno=loop.index0 %}
+  
+        <div class=filename>
+          <div>
+            The file changs in this commit is +{{ file.additions }}, -{{ file.deletions }}
+          </div>
+          
+          {% if file.old_filename != file.new_filename %}
+            {{ file.old_filename|shorten_commit_content }} →
+          {% endif %}
+            {% if file.new_filename == '/dev/null' %}
+              <del>{{ file.old_filename }}</del>
+            {% else %}
+            
+            <a href="{% url 'file_view' repo.name file.new_filename|shorten_commit_content %}" id="test">
+                {{ file.new_filename|shorten_commit_content }}
+              </a>
+            {% endif %}
+        </div>
+        
+          <table>
+            {% for chunk in file.chunks %}
+  
+              {% for line in chunk %}
+                <tr>
+  
+                  {# left column: linenos #}
+                  {% if line.old_lineno is not none %}
+                    <td class=linenos>{{ line.old_lineno }}</td>
+                    {% if line.new_lineno is not none %}
+                      <td class=linenos>{{ line.new_lineno }}</td>
+                    {% else %}
+                      <td class=linenos></td>
+                    {% endif %}
+                  {% else %}
+                    <td class=linenos></td>
+                    <td class=linenos>{{ line.new_lineno }}</td>
+                  {% endif %}
+  
+                  {# right column: code #}
+                  {% if line.old_lineno %}
+                    {% with line_id=line.old_lineno %}
+                    <td class="{{ line.action }}">
+                        <span id="{{ line_id }}">
+                          {# lineno anchors #}
+                          <a name="{{ line_id }}"></a>
+                          {# the actual line of code #}
+                          <span class=line>{% autoescape off %}{{ line.line|shorten_commit_content }}{% endautoescape %}{% if line.no_newline %}<span class="hastooltip no-newline-marker" title="No newline at end of file">⏎</span>{% endif %}</span>
+                        </span>
+                      </td>
+                    {% endwith %}
+                  {% else %}
+                    {% with line_id=line.new_lineno %}
+                    <td class="{{ line.action }}">
+                        <span id="{{ line_id }}">
+                          {# lineno anchors #}
+                          <a name="{{ line_id }}"></a>
+                          {# the actual line of code #}
+                          <span class=line>{% autoescape off %}{{ line.line|shorten_commit_content }}{% endautoescape %}{% if line.no_newline %}<span class="hastooltip no-newline-marker" title="No newline at end of file">⏎</span>{% endif %}</span>
+                        </span>
+                      </td>
+                    {% endwith %}
+                  {% endif %}
+                  
+  
+                </tr>
+              {% endfor %} {# lines #}
+  
+              {% if not loop.last %}
+                <tr class=sep>
+                  <td colspan=3></td>
+                </tr>
+              {% endif %}
+  
+           
+            {% endfor %} {# chunks #}
+          </table>
+          
+    {% endwith %}
+    </div>
+    {% endfor %}
+    </div>
+</body>
+</html>
