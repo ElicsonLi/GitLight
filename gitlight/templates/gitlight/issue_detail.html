@@ -3,12 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Issue Detail</title>
+    {{ editor.media }}
 </head>
 <body>
 <h1>{{ issue.title }}</h1>
 <h2>{{ issue.content | safe }}</h2>
 <h2>{{ issue.solved_state }}</h2>
 
+<h1>Replies</h1>
+{% for reply in replies %}
+    <p>{{ reply.content | safe }}</p>
+{% endfor %}
+
 {#ADD CREATE REPLY AND REPLYHERE#}
+<h1>Create Reply</h1>
+<div class="editor">
+    <form method="post" action="{% url 'create_reply' issue.id %}">
+        <label for="content">Reply:</label>
+        {{ editor.content }}
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+</div>
 </body>
 </html>

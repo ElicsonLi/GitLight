@@ -43,3 +43,9 @@ class Issue(models.Model):
     )
 
 
+class Reply(models.Model):
+    belong_to = models.ForeignKey(
+        'Issue', default=None, on_delete=models.PROTECT)
+    # Content of issue
+    content = MDTextField()
+

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, Http404, HttpResponse
 
 from django.urls import reverse
 from django.core.exceptions import *
-from gitlight.models import RepoModel, Issue
+from gitlight.models import RepoModel, Issue, Reply
 from gitlight.gitop import repo, utils
 from gitlight.utils import *
 from gitlight import REPO_PATH
@@ -201,9 +201,9 @@ def create_issue(request, repo_name):
 
 
 def create_issue_page(request, repo_name):
-    form = IssueForm()
+    editor = IssueForm()
     context = {'repo_name': repo_name,
-               'editor': form}
+               'editor': editor}
     return render(request, 'gitlight/create_issue_page.html', context)
 
 
@@ -231,5 +231,25 @@ def issue_detail_page(request, issue_id):
         'markdown.extensions.codehilite',
         'markdown.extensions.toc',
     ])
-    context = {'issue': issue}
+    # Reply editor
+    editor = IssueForm()
+    # Get all replies
+    replies = Reply.objects.filter(belong_to=issue).all()
+    context = {'issue': issue,
+               'editor': editor,
+               'replies': replies}
     return render(request, 'gitlight/issue_detail.html', context)
+
+
+def create_reply(request, issue_id):
+    if request.method == 'GET':
+        raise Http404
+    # Create issue under a repo
+    try:
+        belong_to = Issue.objects.get(id=issue_id)
+    except ObjectDoesNotExist:
+        raise Http404
+    new_reply = Reply(belong_to=belong_to, content=request.POST['content'])
+    new_reply.save()
+
+    return redirect(reverse('issue_detail_page', args=[issue_id]))

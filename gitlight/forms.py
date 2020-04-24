@@ -57,3 +57,6 @@ class CreateRepoForm(forms.Form):
 class IssueForm(forms.Form):
     issue_title = forms.CharField()
     content = MDTextFormField()
+
+class ReplyForm(forms.Form):
+    content = MDTextFormField()
