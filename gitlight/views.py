@@ -129,7 +129,6 @@ def repo_list(request):
 
     return render(request, 'gitlight/repo_list.html', context)
 
-
 @login_required
 def repo_contents(request, repo_name, repo_path=None):
     repo, rev, path, commit = get_repo_rev(repo_name, rev=None, path=REPO_PATH)
