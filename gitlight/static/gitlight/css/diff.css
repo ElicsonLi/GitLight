@@ -1,4 +1,18 @@
 
+/* Blob, Blame, Diff, Markup View */
+.line { display: block; }
+.linenos { background-color: #f9f9f9; text-align: right; }
+.linenos a { color: #888; }
+.linenos a:hover { text-decoration: none; }
+.highlight-line, .highlight-line .line { background-color: #fefed0; }
+.linenos a { padding: 0 6px 0 6px; }
+.markup table, .markup img, .markup pre { border: 1px solid #e0e0e0; }
+.markup table { min-width: 100%; }
+.markup img { max-width: 100%; padding: 1px; }
+.markup pre {
+  padding: 10px 12px;
+  background-color: #f9f9f9;
+}
 /* Commit View */
 .full-commit { width: 100% !important; margin-top: 10px; }
 
