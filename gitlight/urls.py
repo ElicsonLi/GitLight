@@ -7,6 +7,8 @@ urlpatterns = [
     path('login', views.login_action, name='login'),
     path('register', views.register_action, name='register'),
     path('profile', views.accssemyprofile_action, name='profile_page'),
+    path('confirm-registration/<slug:username>/<slug:token>',
+        views.confirm_action, name='confirm'),
     path('photo/<int:id>', views.get_photo, name='photo'),
     path('create_repo', views.create_repo_action, name='create_repo'),
     path('<str:repo_name>', views.repo_contents, name='repo_contents'),
