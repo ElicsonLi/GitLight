@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2_modified.css" %}">
     <link rel="stylesheet" href="{% static "gitlight/css/codehighlight.css" %}">
+    <link rel="stylesheet" href="{% static "gitlight/css/file-view.css" %}">
 </head>
 <body>
 <div class="" id="wrapper">
@@ -215,7 +216,11 @@
                                             {% load custom_filters %}
                                             <ul>
                                                 {% autoescape off %}
+                                                {% if is_markup and render_markup %}
+                                                    {{ render_code}}</div>
+                                                {% else %}
                                                     {{ render_code }}
+                                                {% endif %}
                                                 {% endautoescape %}
                                             </ul>
                                         </div>

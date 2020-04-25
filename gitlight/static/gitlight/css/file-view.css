@@ -1,0 +1,12 @@
+/* Blob View */
+.blobview .markup { border: 1px solid #e0e0e0; }
+.blobview .markup h1:first-child { margin-top: 8px; }
+.blobview .markup { padding: 0 10px; }
+
+.markup table, .markup img, .markup pre { border: 1px solid #e0e0e0; }
+.markup table { min-width: 100%; }
+.markup img { max-width: 100%; padding: 1px; }
+.markup pre {
+  padding: 10px 12px;
+  background-color: #f9f9f9;
+}

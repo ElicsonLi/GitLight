@@ -220,6 +220,8 @@ def file_view(request, repo_name, repo_path=None):
     else:
         upperdir = repo_path[:lastindex]
     root_tree = repo.listdir(commit=commit, path=upperdir)
+    render_markup = 'markup' not in request
+    is_markup = markup.can_render(filename)
     context = {
         'repo': repo,
         'rev': rev,
@@ -228,7 +230,9 @@ def file_view(request, repo_name, repo_path=None):
         'path': path,
         'blob_or_tree': blob_or_tree,
         'filename': filename,
-        'render_code': highlight_or_render(blob_or_tree.data, filename),
+        'render_code': highlight_or_render(blob_or_tree.data, filename,not render_markup),
+        'render_markup' : render_markup,
+        'is_markup' : is_markup,
         'root_tree': root_tree
     }
     return render(request, 'gitlight/file_view.html', context)
