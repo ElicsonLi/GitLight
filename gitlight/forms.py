@@ -5,8 +5,8 @@ from mdeditor.fields import MDTextFormField
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=20)
-    password = forms.CharField(max_length=200, widget=forms.PasswordInput())
+    username = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class' : 'form-control form-control-user','placeholder' : "Username"}))
+    password = forms.CharField(max_length=200, widget=forms.PasswordInput(attrs={'class' : 'form-control form-control-user', 'placeholder' : "Password"}))
 
     def clean(self):
         cleaned_data = super().clean()
