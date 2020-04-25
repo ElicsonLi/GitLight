@@ -18,43 +18,41 @@
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
-
-                        {% block content %}
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Register for GitLight</h1>
+                        </div>
+                        <form class="user" method="post" action="{% url 'register' %}">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form.last_name }}
+                                </div>
                             </div>
-                            <p class="big-heading"><span id="id_name_of_page">Register for GitLight:<span></p>
-
-                            <form method="post" action="{% url 'register' %}" class="user">
-                                <table class="content">
-                                    {% for field in form.visible_fields %}
-                                        <tr>
-                                            <td>{{ field.label_tag }}</td>
-                                            <td>{{ field }}</td>
-                                            <td class="error">
-                                                {% for error in field.errors %} {{ error }} {% endfor %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </table>
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
-                            </form>
-
-                            {% for error in form.non_field_errors %}
-                                <p class="error">
-                                    {{ error }}
-                                </p>
-                            {% endfor %}
-
-                        {% endblock %}
+                            <div class="form-group">
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form.password }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form.confirm_password }}
+                                </div>
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                        </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password? This is not working!</a>
+                            <a class="small" href="forgot-password.html">Forgot Password? Not working!</a>
                         </div>
-                        {# Redirect to login #}
                         <div class="text-center">
-                            <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+                            <a class="small" href="login.html">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>

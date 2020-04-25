@@ -5,8 +5,10 @@ from mdeditor.fields import MDTextFormField
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class' : 'form-control form-control-user','placeholder' : "Username"}))
-    password = forms.CharField(max_length=200, widget=forms.PasswordInput(attrs={'class' : 'form-control form-control-user', 'placeholder' : "Password"}))
+    username = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "Username"}))
+    password = forms.CharField(max_length=200, widget=forms.PasswordInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "Password"}))
 
     def clean(self):
         cleaned_data = super().clean()
@@ -20,17 +22,20 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(max_length=20)
-    first_name = forms.CharField(max_length=20)
-    last_name = forms.CharField(max_length=20)
+    username = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "Username"}))
+    first_name = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "First Name"}))
+    last_name = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "Last Name"}))
     email = forms.CharField(max_length=50,
-                            widget=forms.EmailInput())
+                            widget=forms.EmailInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Email"}))
     password = forms.CharField(max_length=200,
                                label='Password',
-                               widget=forms.PasswordInput())
+                               widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Password"}))
     confirm_password = forms.CharField(max_length=200,
                                        label='Confirm password',
-                                       widget=forms.PasswordInput())
+                                       widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Confirm Password"}))
 
     def clean_confirm_password(self):
         """Handle password mismatch."""
@@ -50,13 +55,16 @@ class RegistrationForm(forms.Form):
 
         return username
 
+
 class CreateRepoForm(forms.Form):
     repo_name = forms.CharField(max_length=200)
     # TODO: except handler, What if have same name
 
+
 class IssueForm(forms.Form):
     issue_title = forms.CharField()
     content = MDTextFormField()
+
 
 class ReplyForm(forms.Form):
     content = MDTextFormField()
