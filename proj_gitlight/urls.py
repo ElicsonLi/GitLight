@@ -20,5 +20,5 @@ from gitlight import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gitlight/', include('gitlight.urls')),
-    path('', views.login_action),
+    path('', views.repo_list),
 ]

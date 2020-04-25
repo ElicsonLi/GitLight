@@ -149,6 +149,17 @@ def accssemyprofile_action(request):
     return render(request, 'gitlight/profile.html', context)
 
 @login_required
+def accessothers_action(request, id):
+    if(id == request.user.id):
+        return redirect(reverse('profile_page'))
+    else:
+        context = {}
+        others_profile = Profile.objects.get(profile_user_id = id)
+        context['item'] = others_profile
+        my = Profile.objects.get(profile_user_id = request.user.id)
+        return render(request, 'gitlight/othersprofile.html', context)
+
+@login_required
 def repo_list(request):
     """Show a list of all repos and can be sorted by last update."""
     valid_repos, invalid_repos = load_repos_name(REPO_PATH)
@@ -351,3 +362,9 @@ def get_photo(request, id):
         raise Http404
 
     return HttpResponse(item.profile_picture, content_type=item.content_type)
+
+def list_all_user(request):
+    allusers = User.objects.all()
+    print(allusers)
+    context = {'users':allusers}
+    return render(request, 'gitlight/users_list.html', context)
