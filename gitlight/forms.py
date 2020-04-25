@@ -7,6 +7,7 @@ from gitlight.models import Profile
 
 MAX_UPLOAD_SIZE = 2500000
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20, widget=forms.TextInput(
         attrs={'class': 'form-control form-control-user', 'placeholder': "Username"}))
@@ -32,13 +33,16 @@ class RegistrationForm(forms.Form):
     last_name = forms.CharField(max_length=20, widget=forms.TextInput(
         attrs={'class': 'form-control form-control-user', 'placeholder': "Last Name"}))
     email = forms.CharField(max_length=50,
-                            widget=forms.EmailInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Email"}))
+                            widget=forms.EmailInput(
+                                attrs={'class': 'form-control form-control-user', 'placeholder': "Email"}))
     password = forms.CharField(max_length=200,
                                label='Password',
-                               widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Password"}))
+                               widget=forms.PasswordInput(
+                                   attrs={'class': 'form-control form-control-user', 'placeholder': "Password"}))
     confirm_password = forms.CharField(max_length=200,
                                        label='Confirm password',
-                                       widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user', 'placeholder': "Confirm Password"}))
+                                       widget=forms.PasswordInput(attrs={'class': 'form-control form-control-user',
+                                                                         'placeholder': "Confirm Password"}))
 
     def clean_confirm_password(self):
         """Handle password mismatch."""
@@ -65,17 +69,19 @@ class CreateRepoForm(forms.Form):
 
 
 class IssueForm(forms.Form):
-    issue_title = forms.CharField()
+    issue_title = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control form-control-user', 'placeholder': "Title"}))
     content = MDTextFormField()
 
 
 class ReplyForm(forms.Form):
     content = MDTextFormField()
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('profile_picture','bio_input_text',)
+        fields = ('profile_picture', 'bio_input_text',)
 
     def clean_picture(self):
         picture = self.cleaned_data['profile_picture']
