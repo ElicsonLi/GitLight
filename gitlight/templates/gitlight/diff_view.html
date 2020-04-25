@@ -136,12 +136,13 @@
                       </div>
                   </header>
                   {# Changes infos #}
+                  {% for file in file_changes %}
                   <div class="row">
                       {# Repo lists #}
-                      {% for file in file_changes %}
+                      
                       {% with fileno=loop.index0 %}
                       <div class="col">
-                          <div class="col margin-top-text">
+                          <div class="center margin-top-text">
                               <!-- Custom Text Color Utilities -->
                               <div class="card shadow mb-4">
                                   <div class="card-header py-3">
@@ -156,7 +157,7 @@
                                       </h2>
                                   </div>
                                   <div class="card-body">
-                                      <div class="flex-div">
+                                      <!-- <div class="flex-div"> -->
                                           <!-- <div class="flex-basis">
                                               EMAIL
                                           </div> -->
@@ -219,17 +220,18 @@
                                             </table>
                                             
                                           </div>
-                                      </div>
+                                      <!-- </div> -->
                                   </div>
                                   
                               </div>
                           </div>
                           {% endwith %}
-                          {% endfor %}
+                          
                       </div>
 
   
                   </div>
+                  {% endfor %}
               </div>
           </div>
       </div>
