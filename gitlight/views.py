@@ -55,7 +55,7 @@ def login_action(request):
 
 def register_action(request):
     context = {}
-
+    print('adasg')
     # Display the registration form if this is a GET request.
     if request.method == 'GET':
         context['form'] = RegistrationForm()
@@ -67,7 +67,6 @@ def register_action(request):
     # Validates the form.
     if not form.is_valid():
         return render(request, 'gitlight/register.html', context)
-
     new_user = User.objects.create_user(username=form.cleaned_data['username'],
                                         password=form.cleaned_data['password'],
                                         email=form.cleaned_data['email'],
@@ -87,7 +86,7 @@ complete the registration of your account:
 
     send_mail(subject="Verify your email address",
               message= email_body,
-              from_email="eppinger@cmu.edu",
+              from_email="gitlight_team@cmu.edu",
               recipient_list=[new_user.email])
 
     context['email'] = form.cleaned_data['email']
@@ -101,6 +100,7 @@ complete the registration of your account:
     #     profile.save()
     setDefaultProfile(new_user)
     # login(request, new_user)
+    print("adasfdhgfadsfd")
     return render(request,'gitlight/need_confirmation.html',context)
 
 def confirm_action(request, username, token):
