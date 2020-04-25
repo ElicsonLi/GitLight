@@ -7,6 +7,10 @@ urlpatterns = [
     path('login', views.login_action, name='login'),
     path('register', views.register_action, name='register'),
     path('profile', views.accssemyprofile_action, name='profile_page'),
+    path('othersprofile/<int:id>', views.accessothers_action, name='others_profile_page'),
+    path('confirm-registration/<slug:username>/<slug:token>',
+        views.confirm_action, name='confirm'),
+    path('allusers',views.list_all_user,name='users_list'),
     path('photo/<int:id>', views.get_photo, name='photo'),
     path('create_repo', views.create_repo_action, name='create_repo'),
     path('<str:repo_name>', views.repo_contents, name='repo_contents'),
@@ -18,4 +22,5 @@ urlpatterns = [
     path('tree/<str:repo_name>/<path:repo_path>', views.repo_contents, name='repo_contents'),
     path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view'),
     path('commit/<str:repo_name>/<str:commit_id>', views.view_diff, name='view_diff'),
+    
 ]

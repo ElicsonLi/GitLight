@@ -52,7 +52,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'users_list' %}">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Users</span>
             </a>
@@ -87,7 +87,7 @@
 
                     </div>
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a href="#" class="nav-link dropdown-toggle">
+                        <a href="{% url 'profile_page' %}" class="nav-link dropdown-toggle">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
                             {# <img src="profile-img.png" alt="" class="img-profile rounded-circle">#}
                         </a>

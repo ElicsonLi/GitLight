@@ -93,7 +93,7 @@
 
                             </div>
                             <li class="nav-item dropdown no-arrow mx-1">
-                                <a href="#" class="nav-link dropdown-toggle">
+                                <a href="{% url 'profile_page' %}" class="nav-link dropdown-toggle">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
                                     <img src="profile-img.png" alt="" class="img-profile rounded-circle">
                                 </a>
@@ -111,7 +111,7 @@
                             </div>
                             <h1 class="text-center margin-top-text">Welcome to gitlight!</h1>
                             <div class="text-center margin-top-text">
-                                Manage your profile photo and bio to make GIT LIGHT work better for you!
+                                This is the profile page for {{item.update_by}}!
                             </div>
                         </header>
                         <div class="row  margin-top-text">
@@ -143,33 +143,20 @@
                                 </div>
                               </div>
                               
-                              <form enctype="multipart/form-data" action="{% url 'profile_page' %}" method="post" class="add-form">
                               <div class="split-line"></div>
-                              {% for field in form.visible_fields %}
+
                               <div class="card-body">
                                   <div class="flex-div">
                                       <div class="flex-basis">
-                                        {{field.label_tag}}
+                                        User Bio
                                       </div>
                                       <div class="">
-                                        {{field}}
+                                        {{item.bio_input_text}}
                                       </div>
                                   </div>
                               </div>
-                              {% endfor %}
+
                               <div class="split-line"></div>
-                              <div class="card-body">
-                                  <div class="flex-div">
-                                      <div class="flex-basis">
-                                        Submit Changes
-                                      </div>
-                                      <div class="">
-                                        <input type="submit" value="Submit" id = "id_update_profile_button">
-                                      </div>
-                                  </div>
-                              </div>
-                              {% csrf_token %}
-                            </form>
                             </div>
                           </div>
                         </div>
