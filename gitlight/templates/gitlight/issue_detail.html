@@ -103,57 +103,26 @@
                     <div class="profile-photo">
                         <img src="profile-img.png" alt="" class="rounded-circle">
                     </div>
-                    <h1 class="text-center margin-top-text">Welcome to GitLight!</h1>
+                    <h1 class="text-center margin-top-text">Issue #{{ issue.id }}: {{ issue.title }}</h1>
                     <div class="text-center margin-top-text">
-                        Open a valid repo or create a new repo to continue.
+                        {{ issue.content | safe }}
                     </div>
                 </header>
-                {# Repo infos #}
-                <div class="row">
-                    {# Repo lists #}
-                    <div class="col margin-top-text">
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Issue</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="flex-div">
-                                    <!-- <div class="flex-basis">
-                                        EMAIL
-                                    </div> -->
-                                    <div class="">
-                                        <h1>{{ issue.title }}</h1>
-                                        {{ issue.content | safe }}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                {# Reply #}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-primary">Replies</h3>
                     </div>
-                    {# Second Column #}
-                    <div class="col  margin-top-text">
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Replies</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="flex-div">
-                                    <div class="">
-                                        <ul>
-                                            {% for reply in replies %}
-                                                <p>{{ reply.content | safe }}</p>
-                                                <hr>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        <ul>
+                            {% for reply in replies %}
+                                <p>{{ reply.content | safe }}</p>
+                                <hr>
+                            {% endfor %}
+                        </ul>
                     </div>
-
                 </div>
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h3 class="m-0 font-weight-bold text-primary">Reply editor</h3>
