@@ -187,6 +187,7 @@ def repo_contents(request, repo_name, repo_path=None):
             'path': 'This is an empty dir',
             'repo': repo,
             'rev': rev,
+            'ip_addr': IP_ADDR,
         }
         return render(request, 'gitlight/repo_page.html', context)
 

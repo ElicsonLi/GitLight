@@ -2,6 +2,7 @@
 from os import mkdir,chdir
 import os
 import sys
+import git
 
 from gitlight.gitop.repo import FancyRepo, InvalidRepo
 from dulwich.errors import *
@@ -85,8 +86,10 @@ def create_repo(repo_name):
     # chdir(REPO_PATH)
     path = REPO_PATH+'/'+repo_name
     try:
+        # mkdir(path)
+        # new_repo = Repo.init(path)
         mkdir(path)
-        new_repo = Repo.init(path)
+        new_repo = git.Repo.init(path, bare=True)
         return new_repo
     except OSError:
         raise NotFound("Path not legal")
