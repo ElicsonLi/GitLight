@@ -133,8 +133,9 @@
   
                       </div>
                       <li class="nav-item dropdown no-arrow mx-1">
-                          <a href="#" class="nav-link dropdown-toggle">
-                              <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
+                          <a href="{% url 'profile_page' %}" class="nav-link dropdown-toggle">
+                              <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                user</span>
                               {# <img src="profile-img.png" alt="" class="img-profile rounded-circle">#}
                           </a>
                       </li>
@@ -148,7 +149,9 @@
                       <div class="profile-photo">
                           <img src="profile-img.png" alt="" class="rounded-circle">
                       </div>
-                      <h1 class="text-center margin-top-text">View the difference of files</h1>
+                      <h1 class="text-center margin-top-text">
+                        View the difference of files
+                      </h1>
                       <div class="text-center margin-top-text">
                         {{thiscomment.author|extract_author_name }} committed at {{thiscomment.commit_time|unix_time_to_datatime }}
                       </div>
@@ -256,20 +259,3 @@
   
   </body>
   </html>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

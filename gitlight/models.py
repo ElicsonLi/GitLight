@@ -49,3 +49,14 @@ class Reply(models.Model):
     # Content of issue
     content = MDTextField()
 
+class Profile(models.Model):
+    bio_input_text = models.CharField(max_length=200)
+    update_time = models.DateTimeField()
+    profile_picture = models.FileField(blank=True)
+    profile_user_id = models.IntegerField()
+    content_type = models.CharField(max_length=50)
+    update_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name="profile_updates")
+
+    def __str__(self):
+        return str(self.update_by)+" "+self.bio_input_text
+
