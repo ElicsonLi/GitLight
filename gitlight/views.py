@@ -119,24 +119,6 @@ def accssemyprofile_action(request):
     return render(request, 'gitlight/profile.html', context)
 
 @login_required
-def accessothers_action(request, id):
-    if(id == request.user.id):
-        return redirect(reverse('myprofile'))
-    else:
-        context = {}
-        others_profile = Profile.objects.get(profile_user_id = id)
-        context['item'] = others_profile
-        my = Profile.objects.get(profile_user_id = request.user.id)
-        context['followstatus'] = request.POST.get('followstatus','2')
-        if(context['followstatus'] == '0'):
-            my.follows.add(others_profile)
-            my.save()
-        if(context['followstatus'] == '1'):
-            my.follows.remove(others_profile)
-            my.save()
-        context['myfollows'] = my.follows.all()
-        return render(request, 'socialnetwork/othersprofile.html', context)
-@login_required
 def repo_list(request):
     """Show a list of all repos and can be sorted by last update."""
     valid_repos, invalid_repos = load_repos_name(REPO_PATH)
@@ -146,7 +128,6 @@ def repo_list(request):
     context['valid_repo'] = valid_repos.keys()
 
     return render(request, 'gitlight/repo_list.html', context)
-
 
 @login_required
 def repo_contents(request, repo_name, repo_path=None):
