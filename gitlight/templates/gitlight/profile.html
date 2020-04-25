@@ -166,43 +166,43 @@
                                         PHOTO
                                     </div>
                                     <div class="">
-                                        Add a photo to personalize your account
+                                        {% if item.profile_picture %}
+                                            <img src="{% url 'photo' item.id %}" alt="{{item.text}}" width="200px" id = "id_user_picture">
+                                            <br>
+                                        {% else %}
+                                            <img src="/static/img/default.JPG" alt="{{item.text}}" width="200px" id = "id_user_picture">
+                                        {% endif %}
                                     </div>
                                 </div>
                               </div>
+                              
+                              <form enctype="multipart/form-data" action="{% url 'profile_page' %}" method="post" class="add-form">
+                              <div class="split-line"></div>
+                              {% for field in form.visible_fields %}
+                              <div class="card-body">
+                                  <div class="flex-div">
+                                      <div class="flex-basis">
+                                        {{field.label_tag}}
+                                      </div>
+                                      <div class="">
+                                        {{field}}
+                                      </div>
+                                  </div>
+                              </div>
+                              {% endfor %}
                               <div class="split-line"></div>
                               <div class="card-body">
                                   <div class="flex-div">
                                       <div class="flex-basis">
-                                          NAME
+                                        Submit Changes
                                       </div>
                                       <div class="">
-                                          User Name
+                                        <input type="submit" value="Submit" id = "id_update_profile_button">
                                       </div>
                                   </div>
                               </div>
-                              <div class="split-line"></div>
-                              <div class="card-body">
-                                  <div class="flex-div">
-                                      <div class="flex-basis">
-                                          GENDER
-                                      </div>
-                                      <div class="">
-                                          Male
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="split-line"></div>
-                              <div class="card-body">
-                                  <div class="flex-div">
-                                      <div class="flex-basis">
-                                          BIRTHDAY
-                                      </div>
-                                      <div class="">
-                                          January 1, 9999
-                                      </div>
-                                  </div>
-                              </div>
+                              {% csrf_token %}
+                            </form>
                             </div>
                           </div>
                         </div>
@@ -212,7 +212,7 @@
                             <!-- Custom Text Color Utilities -->
                             <div class="card shadow mb-4">
                               <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Contact Info</h2>
+                                <h2 class="m-0 font-weight-bold text-primary">The User's Reop</h2>
                               </div>
                               <div class="card-body">
                                   <div class="flex-div">

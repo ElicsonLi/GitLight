@@ -1,5 +1,5 @@
 import sys
-from django.shortcuts import render, redirect, Http404, HttpResponse
+from django.shortcuts import render, redirect, Http404, HttpResponse, get_object_or_404
 
 from django.urls import reverse
 from django.core.exceptions import *
@@ -99,7 +99,7 @@ def accssemyprofile_action(request):
     if not form.is_valid():
         context['form'] = form
     else:
-        profile.profile_picture.delete()
+        # profile.profile_picture.delete()
         pic = form.cleaned_data['profile_picture']
         print('Uploaded picture: {} (type={})'.format(pic, type(pic)))
         profile.content_type = form.cleaned_data['profile_picture'].content_type
@@ -107,13 +107,16 @@ def accssemyprofile_action(request):
         context['form'] = form
 
     if Profile.objects.filter(profile_user_id = request.user.id):
+        print("yes")
+        
         my = Profile.objects.get(profile_user_id = request.user.id)
         context['item'] = my
-        context['myfollows'] = list(my.follows.all())
+        print(my.profile_picture)
     else:
+        print("no")
         profile.bio_input_text = "Please write your bio"
         profile.profile_picture = "/static/default.jpg"
-    return render(request, 'socialnetwork/myprofile.html', context)
+    return render(request, 'gitlight/profile.html', context)
 
 @login_required
 def accessothers_action(request, id):
@@ -326,3 +329,14 @@ def setDefaultProfile(user):
     profile.bio_input_text = "Please write your bio"
     print(profile)
     profile.save()
+
+def get_photo(request, id):
+    item = get_object_or_404(Profile, id=id)
+    print('Picture #{} fetched from db: {} (type={})'.format(id, item.profile_picture, type(item.profile_picture)))
+
+    # Maybe we don't need this check as form validation requires a picture be uploaded.
+    # But someone could have delete the picture leaving the DB with a bad references.
+    if not item.profile_picture:
+        raise Http404
+
+    return HttpResponse(item.profile_picture, content_type=item.content_type)

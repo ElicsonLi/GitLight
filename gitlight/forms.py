@@ -67,7 +67,7 @@ class ReplyForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio_input_text','profile_picture',)
+        fields = ('profile_picture','bio_input_text',)
 
     def clean_picture(self):
         picture = self.cleaned_data['profile_picture']
