@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repo page</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+            integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2_modified.css" %}">
+</head>
+<body>
+<div class="" id="wrapper">
+    <!-- Sidebar -->
+    <ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <div class="side-logo sidebar-brand d-flex align-items-center justify-content-center">
+            <div class="side-nav-trigger">
+                <svg viewBox="0 0 24 24" class="side-menu-logo">
+                    <path d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
+                </svg>
+            </div>
+
+            {#            <a href="#">#}
+            {#                <img src="logo.png" alt="" class="logo">#}
+            {#            </a>#}
+        </div>
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'repo_list' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Repo List</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Enssentials
+        </div>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Issues</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Issues:</h6>
+                    <a class="collapse-item" href="utilities-color.html">Related to you</a>
+                    <a class="collapse-item" href="utilities-border.html">Assigned to you</a>
+                    <a class="collapse-item" href="utilities-animation.html">Created by you</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Explore</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Explore</h6>
+                    <a class="collapse-item" href="cards.html">Repos</a>
+                    <a class="collapse-item" href="buttons.html">Users</a>
+                    <a class="collapse-item" href="buttons.html">Organizations</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div class="" id="content-wrapper">
+        <!-- Main Content -->
+        <div class="" id="content">
+            <!-- Topbar -->
+            <nav class="fix-nav space-between navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <div class="side-logo">
+                    <div class="side-nav-trigger">
+                        <svg viewBox="0 0 24 24" class="side-menu-logo">
+                            <path d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
+                        </svg>
+                    </div>
+
+                    {#                    <a href="#">#}
+                    {#                        <img src="blue-logo.png" alt="" class="logo">#}
+                    {#                    </a>#}
+                </div>
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a href="{% url 'issue_list_page' repo.name %}" class=" nav-link dropdown-toggle">
+                            <i>Issues</i></a>
+                    </li>
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <span>Message</span>
+                        </a>
+                    </li>
+                    <div class="topbar-divider d-none d-sm-block">
+
+                    </div>
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
+                            {# <img src="profile-img.png" alt="" class="img-profile rounded-circle">#}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+
+            <!-- 404 Error Text -->
+            <div class="container-fluid">
+                <div class="text-center">
+                    <div class="error mx-auto" data-text="404">404</div>
+                    <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                    <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+                    <a href="index.html">&larr; Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static "gitlight/js/effects.js" %}"></script>
+
+</body>
+</html>

@@ -23,7 +23,6 @@ from gitlight.forms import LoginForm, RegistrationForm, IssueForm, ProfileForm
 from gitlight.models import *
 
 
-
 def login_action(request):
     context = {}
     # Display the registration form if this is a GET request.
@@ -86,12 +85,13 @@ def register_action(request):
     login(request, new_user)
     return redirect(reverse('repo_list'))
 
+
 @login_required
 def accssemyprofile_action(request):
     context = {}
     print(request.user.id)
 
-    profile =  Profile.objects.get(profile_user_id = request.user.id)
+    profile = Profile.objects.get(profile_user_id=request.user.id)
     form = ProfileForm(request.POST, request.FILES, instance=profile)
     profile.update_time = timezone.now()
     profile.update_by = request.user
@@ -106,10 +106,10 @@ def accssemyprofile_action(request):
         form.save()
         context['form'] = form
 
-    if Profile.objects.filter(profile_user_id = request.user.id):
+    if Profile.objects.filter(profile_user_id=request.user.id):
         print("yes")
-        
-        my = Profile.objects.get(profile_user_id = request.user.id)
+
+        my = Profile.objects.get(profile_user_id=request.user.id)
         context['item'] = my
         print(my.profile_picture)
     else:
@@ -117,6 +117,7 @@ def accssemyprofile_action(request):
         profile.bio_input_text = "Please write your bio"
         profile.profile_picture = "/static/default.jpg"
     return render(request, 'gitlight/profile.html', context)
+
 
 @login_required
 def repo_list(request):
@@ -128,6 +129,7 @@ def repo_list(request):
     context['valid_repo'] = valid_repos.keys()
 
     return render(request, 'gitlight/repo_list.html', context)
+
 
 @login_required
 def repo_contents(request, repo_name, repo_path=None):
@@ -229,7 +231,7 @@ def create_issue(request, repo_name):
     try:
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
-        raise Http404
+        return render(request, 'gitlight/404.html', {})
     new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['content'])
     new_issue.save()
 
@@ -251,7 +253,7 @@ def view_diff(request, repo_name, commit_id):
         'repo': repo,
         'file_changes': file_changes,
         'summary': summary,
-        'thiscomment':this_commit,
+        'thiscomment': this_commit,
     }
     return render(request, 'gitlight/diff_view.html', context)
 
@@ -298,9 +300,11 @@ def create_reply(request, issue_id):
 
     return redirect(reverse('issue_detail_page', args=[issue_id]))
 
+
 def profile_page(request):
     context = {}
     return render(request, 'gitlight/profile.html', context)
+
 
 def setDefaultProfile(user):
     profile = Profile()
@@ -310,6 +314,7 @@ def setDefaultProfile(user):
     profile.bio_input_text = "Please write your bio"
     print(profile)
     profile.save()
+
 
 def get_photo(request, id):
     item = get_object_or_404(Profile, id=id)
