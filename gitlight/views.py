@@ -22,7 +22,8 @@ from django.utils import timezone
 from gitlight.forms import LoginForm, RegistrationForm, IssueForm, ProfileForm
 from gitlight.models import *
 
-
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
 
 def login_action(request):
     context = {}
@@ -72,10 +73,26 @@ def register_action(request):
                                         email=form.cleaned_data['email'],
                                         first_name=form.cleaned_data['first_name'],
                                         last_name=form.cleaned_data['last_name'])
+    new_user.is_active = False
     new_user.save()
+        # Generate a one-time use token and an email message body
+    token = default_token_generator.make_token(new_user)
 
-    new_user = authenticate(username=form.cleaned_data['username'],
-                            password=form.cleaned_data['password'])
+    email_body = """
+Please click the link below to verify your email address and
+complete the registration of your account:
+  http://{host}{path}
+""".format(host=request.get_host(), 
+           path=reverse('confirm', args=(new_user.username, token)))
+
+    send_mail(subject="Verify your email address",
+              message= email_body,
+              from_email="eppinger@cmu.edu",
+              recipient_list=[new_user.email])
+
+    context['email'] = form.cleaned_data['email']
+    # new_user = authenticate(username=form.cleaned_data['username'],
+    #                         password=form.cleaned_data['password'])
 
     # # create default when profile does not exist
     # if not Profile.objects.filter(user=new_user).exists():
@@ -83,8 +100,21 @@ def register_action(request):
     #                       ip_addr=request.META['REMOTE_ADDR'])
     #     profile.save()
     setDefaultProfile(new_user)
-    login(request, new_user)
-    return redirect(reverse('repo_list'))
+    # login(request, new_user)
+    return render(request,'gitlight/need_confirmation.html',context)
+
+def confirm_action(request, username, token):
+    user = get_object_or_404(User, username=username)
+
+    # Send 404 error if token is invalid
+    if not default_token_generator.check_token(user, token):
+        raise Http404
+
+    # Otherwise token was valid, activate the user.
+    user.is_active = True
+    user.save()
+
+    return render(request, 'gitlight/confirmed.html', {})
 
 @login_required
 def accssemyprofile_action(request):

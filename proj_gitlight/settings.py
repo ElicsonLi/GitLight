@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from configparser import ConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -121,3 +122,15 @@ STATICFILES_DIRS = [
 # Media directory
 MEDIA_ROOT = os.path.join(BASE_DIR,'uploads')
 MEDIA_URL = '/media/'
+
+config = ConfigParser()
+config.read(os.path.join(BASE_DIR, 'config.ini'))
+
+EMAIL_HOST = config.get('Email', 'Host')
+EMAIL_PORT = int(config.get('Email', 'Port'))
+EMAIL_HOST_USER = config.get('Email', 'User')
+EMAIL_HOST_PASSWORD = config.get('Email', 'Password')
+EMAIL_USE_SSL = True
+
+print('Email host:port = {host}:{port}, user={user}'.format(
+        host=EMAIL_HOST, port=EMAIL_PORT, user=EMAIL_HOST_USER))
