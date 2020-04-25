@@ -1,5 +1,5 @@
 import sys
-from django.shortcuts import render, redirect, Http404, HttpResponse
+from django.shortcuts import render, redirect, Http404, HttpResponse, get_object_or_404
 
 from django.urls import reverse
 from django.core.exceptions import *
@@ -17,7 +17,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
-from gitlight.forms import LoginForm, RegistrationForm, IssueForm
+from django.utils import timezone
+
+from gitlight.forms import LoginForm, RegistrationForm, IssueForm, ProfileForm
+from gitlight.models import *
+
 
 
 def login_action(request):
@@ -78,11 +82,60 @@ def register_action(request):
     #     profile = Profile(user=new_user, id=new_user.id,
     #                       ip_addr=request.META['REMOTE_ADDR'])
     #     profile.save()
-
+    setDefaultProfile(new_user)
     login(request, new_user)
     return redirect(reverse('repo_list'))
 
+@login_required
+def accssemyprofile_action(request):
+    context = {}
+    print(request.user.id)
 
+    profile =  Profile.objects.get(profile_user_id = request.user.id)
+    form = ProfileForm(request.POST, request.FILES, instance=profile)
+    profile.update_time = timezone.now()
+    profile.update_by = request.user
+    profile.profile_user_id = request.user.id
+    if not form.is_valid():
+        context['form'] = form
+    else:
+        # profile.profile_picture.delete()
+        pic = form.cleaned_data['profile_picture']
+        print('Uploaded picture: {} (type={})'.format(pic, type(pic)))
+        profile.content_type = form.cleaned_data['profile_picture'].content_type
+        form.save()
+        context['form'] = form
+
+    if Profile.objects.filter(profile_user_id = request.user.id):
+        print("yes")
+        
+        my = Profile.objects.get(profile_user_id = request.user.id)
+        context['item'] = my
+        print(my.profile_picture)
+    else:
+        print("no")
+        profile.bio_input_text = "Please write your bio"
+        profile.profile_picture = "/static/default.jpg"
+    return render(request, 'gitlight/profile.html', context)
+
+@login_required
+def accessothers_action(request, id):
+    if(id == request.user.id):
+        return redirect(reverse('myprofile'))
+    else:
+        context = {}
+        others_profile = Profile.objects.get(profile_user_id = id)
+        context['item'] = others_profile
+        my = Profile.objects.get(profile_user_id = request.user.id)
+        context['followstatus'] = request.POST.get('followstatus','2')
+        if(context['followstatus'] == '0'):
+            my.follows.add(others_profile)
+            my.save()
+        if(context['followstatus'] == '1'):
+            my.follows.remove(others_profile)
+            my.save()
+        context['myfollows'] = my.follows.all()
+        return render(request, 'socialnetwork/othersprofile.html', context)
 @login_required
 def repo_list(request):
     """Show a list of all repos and can be sorted by last update."""
@@ -263,3 +316,27 @@ def create_reply(request, issue_id):
     new_reply.save()
 
     return redirect(reverse('issue_detail_page', args=[issue_id]))
+
+def profile_page(request):
+    context = {}
+    return render(request, 'gitlight/profile.html', context)
+
+def setDefaultProfile(user):
+    profile = Profile()
+    profile.update_time = timezone.now()
+    profile.update_by = user
+    profile.profile_user_id = user.id
+    profile.bio_input_text = "Please write your bio"
+    print(profile)
+    profile.save()
+
+def get_photo(request, id):
+    item = get_object_or_404(Profile, id=id)
+    print('Picture #{} fetched from db: {} (type={})'.format(id, item.profile_picture, type(item.profile_picture)))
+
+    # Maybe we don't need this check as form validation requires a picture be uploaded.
+    # But someone could have delete the picture leaving the DB with a bad references.
+    if not item.profile_picture:
+        raise Http404
+
+    return HttpResponse(item.profile_picture, content_type=item.content_type)
