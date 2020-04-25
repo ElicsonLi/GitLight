@@ -226,6 +226,7 @@
                                 {#                                    </div>#}
                                 {#                                </div>#}
                                 {#                            </div>#}
+
                                 <div class="card-body">
                                     <div class="flex-div">
                                         {#                                    <div class="flex-basis">#}
@@ -235,18 +236,22 @@
                                             {% load custom_filters %}
                                             <ul>
                                                 {% for commit in history %}
-                                                    <li>
-                                                        <p>
+                                                    <li style="list-style-type: none;">
+                                                        <div class="flex-basis">
                                                             <a href="{% url 'view_diff' repo.name commit.id|shorten_commit_content %}"
                                                                id="test">
-                                                                {{ commit.message|shorten_commit_content }}</a></p>
-                                                        <p>
-                                                            {{ commit.author|extract_author_name }}
-                                                        </p>
-                                                        <p>
-                                                            {{ commit.commit_time|unix_time_to_datatime }}
-                                                        </p>
-
+                                                            <span style="white-space: pre-line">
+                                                            {{ commit.message|shorten_commit_content }}
+                                                            </span>
+                                                            </a>
+                                                            <p>
+                                                                {{ commit.author|extract_author_name }}
+                                                            </p>
+                                                            <p>
+                                                                {{ commit.commit_time|unix_time_to_datatime }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="split-line"></div>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
