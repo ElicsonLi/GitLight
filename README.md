@@ -1,2 +1,6 @@
-# team18
-Repository for team18
+# GitLight
+
+## Environment
+
+`pip install humanize werkzeug dulwich httpauth pygments `
+
