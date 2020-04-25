@@ -20,28 +20,30 @@
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
-                                <h1><span id="id_name_of_page" class="h4 text-gray-900 mb-4">Login to GitLight:</span>
-                                </h1>
-                            </div>
-                            <form method="post" action="{% url 'login' %}" class="user">
-                                <table class="content">
-                                    {{ form }}
-                                </table>
-                                {% csrf_token %}
-                                <p></p>
-                                <button type="submit" id="id_login_button" class="btn btn-primary btn-user btn-block">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Login to GitLight:</h1>
+                                </div>
+                                <form  method="post" class="user" action="{% url 'login' %}">
+                                    <div class="form-group">
+                                        {{ form.username }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.password }}
+                                    </div>
+                                    {% csrf_token %}
+                                    <button type="submit" id="id_login_button" class="btn btn-primary btn-user btn-block">
                                     Login
                                 </button>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password? This is not working.</a>
-                            </div>
-                            <div class="text-center">
-                                <a href="{% url 'register' %}">
+                                    <hr>
+
+                                </form>
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Forgot Password? This is not working.</a>
+                                </div>
+                                <div class="text-center">
                                     <a class="small" href="{% url 'register' %}">Create an Account!
                                     </a>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
