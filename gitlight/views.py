@@ -55,7 +55,6 @@ def login_action(request):
 
 def register_action(request):
     context = {}
-    print('adasg')
     # Display the registration form if this is a GET request.
     if request.method == 'GET':
         context['form'] = RegistrationForm()
@@ -100,7 +99,6 @@ complete the registration of your account:
     #     profile.save()
     setDefaultProfile(new_user)
     # login(request, new_user)
-    print("adasfdhgfadsfd")
     return render(request,'gitlight/need_confirmation.html',context)
 
 def confirm_action(request, username, token):
@@ -120,8 +118,6 @@ def confirm_action(request, username, token):
 @login_required
 def accssemyprofile_action(request):
     context = {}
-    print(request.user.id)
-
     profile = Profile.objects.get(profile_user_id=request.user.id)
     form = ProfileForm(request.POST, request.FILES, instance=profile)
     profile.update_time = timezone.now()
@@ -138,13 +134,9 @@ def accssemyprofile_action(request):
         context['form'] = form
 
     if Profile.objects.filter(profile_user_id=request.user.id):
-        print("yes")
-
         my = Profile.objects.get(profile_user_id=request.user.id)
         context['item'] = my
-        print(my.profile_picture)
     else:
-        print("no")
         profile.bio_input_text = "Please write your bio"
         profile.profile_picture = "/static/default.jpg"
     return render(request, 'gitlight/profile.html', context)
@@ -211,7 +203,6 @@ def repo_contents(request, repo_name, repo_path=None):
         'root_tree': root_tree,
         'ip_addr': IP_ADDR,
     }
-    print(commit.id)
     return render(request, 'gitlight/repo_page.html', context)
 
 
@@ -354,7 +345,6 @@ def setDefaultProfile(user):
     profile.update_by = user
     profile.profile_user_id = user.id
     profile.bio_input_text = "Please write your bio"
-    print(profile)
     profile.save()
 
 
@@ -371,6 +361,5 @@ def get_photo(request, id):
 
 def list_all_user(request):
     allusers = User.objects.all()
-    print(allusers)
     context = {'users':allusers}
     return render(request, 'gitlight/users_list.html', context)
