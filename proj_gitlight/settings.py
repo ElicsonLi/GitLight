@@ -70,6 +70,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'proj_gitlight.wsgi.application'
 
+LOGIN_URL = '/gitlight/login'
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
