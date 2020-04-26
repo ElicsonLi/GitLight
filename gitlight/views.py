@@ -53,7 +53,10 @@ def login_action(request):
     login(request, new_user)
     return redirect(reverse('repo_list'))
 
-
+def logout_action(request):
+    logout(request)
+    return redirect(reverse('login'))
+    
 def register_action(request):
     context = {}
     # Display the registration form if this is a GET request.
