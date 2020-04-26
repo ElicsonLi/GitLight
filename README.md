@@ -1,5 +1,17 @@
 # GitLight
 
+## Attention
+
+Git server requires ssh key to access git repository. Users without their key in git server's .ssh/authorized_keys will only be able to create repo and come up with issues. Authorized user (have their key in .ssh/authorized_keys) will be able to clone/push repos.
+
+Steps to create a ssh key.
+
+1. Create ssh key by typein `ssh-keygen` in your shell.
+
+2. Your ssh key should now in your .ssh/id_rsa by default.
+
+3. Copy and paste to git server's .ssh/authorized_keys file
+
 ## Demo Link
 
 http://3.20.246.26/
