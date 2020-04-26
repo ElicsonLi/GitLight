@@ -23,7 +23,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "gitlight/static")
 SECRET_KEY = 'g!a@7(hgn)cgx%%af=%kx$egt%oqebf7s03=rq#1!@r3y$^+gu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['3.20.246.26']
 
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 

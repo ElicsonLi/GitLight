@@ -111,7 +111,7 @@
                         
                         <h1 class="text-center margin-top-text">{{ repo.name }}</h1>
                         <div class="text-center margin-top-text">
-                            Clone URL: git@{{ ip_addr }}:{{ repo.path }}
+                            Clone URL: ubuntu@{{ ip_addr }}:{{ repo.path }}
                         </div>
                     </header>
                     {# Repo infos #}
@@ -249,7 +249,7 @@
                     <h1 class="text-center margin-top-text">{{ repo.name }}</h1>
                     <div class="text-center margin-top-text">
                         <p>Oops, this repo is empty! Clone and add some file to continue.</p>
-                        <p>Clone URL: git@{{ ip_addr }}:{{ repo.path }}</p>
+                        <p>Clone URL: ubuntu@{{ ip_addr }}:{{ repo.path }}</p>
                     </div>
                 </header>
             {% endif %}
