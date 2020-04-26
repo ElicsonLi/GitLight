@@ -135,6 +135,9 @@
                       <div class="text-center margin-top-text">
                         {{thiscomment.author|extract_author_name }} committed at {{thiscomment.commit_time|unix_time_to_datatime }}
                       </div>
+                      <div class="text-center margin-top-text">
+                        There are total {{summary.nfiles}} changed file with with {{summary.nadditions}} addition and {{summary.ndeletions}} deletion.
+                      </div>
                   </header>
                   {# Changes infos #}
                   {% for file in file_changes %}
