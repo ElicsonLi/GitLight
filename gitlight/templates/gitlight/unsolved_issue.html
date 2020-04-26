@@ -46,7 +46,7 @@
         </div>
 
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'all_unsolved_issues' %}">
+            <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-wrench"></i>
                 <span>Unsolved Issues</span>
             </a>
@@ -103,9 +103,6 @@
                         <img src="profile-img.png" alt="" class="rounded-circle">
                     </div>
                     <h1 class="text-center margin-top-text">Welcome to GitLight!</h1>
-                    <div class="text-center margin-top-text">
-                        Open a valid repo or create a new repo to continue.
-                    </div>
                 </header>
                 {# Repo infos #}
                 <div class="row">
@@ -115,19 +112,16 @@
                             <!-- Custom Text Color Utilities -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h2 class="m-0 font-weight-bold text-primary">Valid Repos</h2>
+                                    <h2 class="m-0 font-weight-bold text-primary">All Issues</h2>
                                 </div>
                                 <div class="card-body">
                                     <div class="flex-div">
-                                        <!-- <div class="flex-basis">
-                                            EMAIL
-                                        </div> -->
                                         <div class="">
                                             <ul>
-                                                {% for repo in valid_repo %}
+                                                {% for issue in issues %}
                                                     <li>
-                                                        <a href="{% url 'repo_contents' repo %}"
-                                                           id="test">{{ repo }}</a>
+                                                        <a href="{% url 'issue_detail_page' issue.id %}"
+                                                           id="test">{{ issue.title }}</a>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
@@ -137,58 +131,7 @@
 
                             </div>
                         </div>
-                        {# Second Column #}
-                        <div class="col  margin-top-text">
-                            <!-- Custom Text Color Utilities -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h2 class="m-0 font-weight-bold text-primary">Invalid Repos</h2>
-                                </div>
-                                <div class="card-body">
-                                    <div class="flex-div">
-                                        <div class="">
-                                            <ul>
-                                                {% for repo in invalid_repo %}
-                                                    <li>
-                                                        {{ repo }}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col">
-                        <div class="col margin-top-text">
-                            <!-- Custom Text Color Utilities -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h2 class="m-0 font-weight-bold text-primary">...or create a new repo</h2>
-                                </div>
-                                <div class="card-body">
-                                    <div class="flex-div">
-                                        <div class="">
-                                            <form method="post" action="{% url 'create_repo' %}">
-                                                <div class="form-group">
-                                                    <label for="repo_name">New Repo: </label>
-                                                    <input id="repo_name" type="text" name="repo_name" value=""
-                                                           class="form-control form-control-user"
-                                                           placeholder="New repo name">
-                                                </div>
-                                                <input type="submit" value="Create"
-                                                       class="btn btn-primary">
-                                                {% csrf_token %}
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
