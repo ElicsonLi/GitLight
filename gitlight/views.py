@@ -1,5 +1,5 @@
 import sys
-from django.shortcuts import render, redirect, Http404, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, Http404, HttpResponse, get_object_or_404, get_list_or_404
 
 from django.urls import reverse
 from django.core.exceptions import *
@@ -53,10 +53,12 @@ def login_action(request):
     login(request, new_user)
     return redirect(reverse('repo_list'))
 
+
 def logout_action(request):
     logout(request)
     return redirect(reverse('login'))
-    
+
+
 def register_action(request):
     context = {}
     # Display the registration form if this is a GET request.
@@ -381,7 +383,12 @@ def list_all_user(request):
 
 def list_all_unsolved_issue(request):
     all_issue = Issue.objects.filter(solved_state='F').all()
+    repos = []
+    for issue in all_issue:
+        repos.append(issue.belong_to)
+    repos = list(set(repos))
     context = {
-        'issues': all_issue
+        'issues': all_issue,
+        'repos': repos,
     }
     return render(request, 'gitlight/unsolved_issue.html', context)

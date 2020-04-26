@@ -163,7 +163,8 @@
                                             Submit Changes
                                         </div>
                                         <div class="">
-                                            <input type="submit" value="Submit" class="btn btn-primary btn-user btn-block">
+                                            <input type="submit" value="Submit"
+                                                   class="btn btn-primary btn-user btn-block">
                                         </div>
                                     </div>
                                 </div>
@@ -173,11 +174,38 @@
                     </div>
                 </div>
                 <!-- Second Row -->
-                
-            </div>
+                <div class="row margin-top-text">
+                    <div class="col-lg-6">
+                        <!-- Custom Text Color Utilities -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h2 class="m-0 font-weight-bold text-primary">Repo Created</h2>
+                            </div>
+                            {% if repos %}
+                                {% for repo in repos %}
+                                    <div class="card-body">
+                                        <div class="flex-div">
+                                            <a href="{% url 'repo_contents' repo.name %}"
+                                               id="test">{{ repo.name }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="split-line"></div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="card-body">
+                                    <div class="flex-div">
+                                        Oh no! I found 404 repo here!
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 <script type="text/javascript" src="{% static "gitlight/js/effects.js" %}"></script>
 </body>
