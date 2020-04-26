@@ -9,3 +9,12 @@ $(".side-nav-trigger").click(function() {
 $(".card-body").hover(function () {
     $(this).toggleClass("grey-background");
 });
+
+$("#invite_btn").click(function() {
+    $("#light").toggle();
+    $("#fade").toggle();
+});
+$("#close_btn").click(function() {
+    $("#light").toggle();
+    $("#fade").toggle();
+});
