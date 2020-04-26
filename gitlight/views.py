@@ -383,7 +383,10 @@ def list_all_user(request):
 
 def list_all_unsolved_issue(request):
     all_issue = Issue.objects.filter(solved_state='F').all()
-    repos = RepoModel.objects.all()
+    repos = []
+    for issue in all_issue:
+        repos.append(issue.belong_to)
+    repos = list(set(repos))
     context = {
         'issues': all_issue,
         'repos': repos,
