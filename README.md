@@ -52,3 +52,8 @@ Our project is building a website with git service that can be used by students,
 * User profile
 	* Include a profile picture and bio of the user
 	* All of the repos the user have
+
+## Reference
+
+Theme: SB Admin 2
+Klaus, a flask git viewer
