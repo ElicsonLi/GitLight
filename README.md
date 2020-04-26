@@ -58,3 +58,45 @@ Our project is building a website with git service that can be used by students,
 Theme: SB Admin 2
 
 Klaus, a flask git viewer
+
+## Contributions
+
+### Zihao Cao
+
+Repo create 
+
+Git server/clone url
+
+Built in markdown editor
+
+Issue/reply
+
+Commits history view
+
+Front end for repo page/repo list/issue/reply/login/register
+
+Deployment
+
+### Zhengpei Li
+
+Commit history view for different subordinate directory
+
+File view/Highlight for code view
+
+Difference in each commit
+
+Email authentication
+
+Profile
+
+Front end for file view/commit view/profile page
+
+### Liangyi Zhao
+
+Logo and UI design for the website
+
+Javascript/Jquery animation
+
+User permission management (undeployed)
+
+Front-end pages modification
