@@ -26,7 +26,7 @@ Our project is building a website with git service that can be used by students,
 
 ## Environment
 
-`pip install humanize werkzeug dulwich httpauth pygments mdeditor `
+`pip install humanize werkzeug dulwich httpauth pygments django-mdeditor `
 
 ## Functionalities
 
