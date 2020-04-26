@@ -120,13 +120,13 @@
 
                     <div class="margin-top-text">
                         <p>{{ issue.content | safe }} </p>
-                        <p>{{issue.update_time}} </p>
+                        <p>Created by {{issue.user.username}} at {{issue.update_time}} </p>
                     </div>
                 </header>
                 {% for reply in replies %}
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Reply from {{user.username}} at {{reply.update_time}}</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Reply from {{reply.user.username}} at {{reply.update_time}}</h6>
                         </div>
                         <div class="card-body">
                             <p>{{ reply.content | safe }}</p>

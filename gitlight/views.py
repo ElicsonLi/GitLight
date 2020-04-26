@@ -280,7 +280,7 @@ def create_issue(request, repo_name):
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
         return render(request, 'gitlight/404.html', {})
-    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['content'],update_time=timezone.now())
+    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], user=request.user, content=request.POST['content'],update_time=timezone.now())
     new_issue.save()
 
     return redirect(reverse('issue_list_page', args=[repo_name]))
@@ -343,7 +343,7 @@ def create_reply(request, issue_id):
         belong_to = Issue.objects.get(id=issue_id)
     except ObjectDoesNotExist:
         raise Http404
-    new_reply = Reply(belong_to=belong_to, content=request.POST['content'],update_time=timezone.now())
+    new_reply = Reply(belong_to=belong_to, content=request.POST['content'], user=request.user,update_time=timezone.now())
     new_reply.save()
 
     return redirect(reverse('issue_detail_page', args=[issue_id]))

@@ -29,7 +29,7 @@ class Issue(models.Model):
     # Content of issue
     content = MDTextField()
     update_time = models.DateTimeField()
-
+    user = models.ForeignKey(User, default=None, on_delete=models.PROTECT)
     # Indicate whether a issue has been solved
     SOLVED = 'T'
     UNSOLVED = 'F'
@@ -49,6 +49,7 @@ class Reply(models.Model):
         'Issue', default=None, on_delete=models.PROTECT)
     # Content of issue
     content = MDTextField()
+    user = models.ForeignKey(User, default=None, on_delete=models.PROTECT)
     update_time = models.DateTimeField()
 
 class Profile(models.Model):
