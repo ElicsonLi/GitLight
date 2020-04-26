@@ -133,6 +133,11 @@
                                                 {% for issue in issues %}
                                                     <li>
                                                         <a href="{% url 'issue_detail_page' issue.id %}">{{ issue.title }}</a>
+                                                        {% if issue.solved_state is 'T' %}
+                                                            <span class="text-right">SOLVED</span>
+                                                        {% else %}
+                                                            <span class="text-right">UNSOLVED</span>
+                                                        {% endif %}
                                                     </li>
                                                 {% endfor %}
                                             </ul>
