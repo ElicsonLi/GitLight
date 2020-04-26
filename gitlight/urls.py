@@ -24,4 +24,5 @@ urlpatterns = [
     path('blob/<str:repo_name>/<path:repo_path>', views.file_view, name='file_view'),
     path('commit/<str:repo_name>/<str:commit_id>', views.view_diff, name='view_diff'),
     path('all_unsolved_issues', views.list_all_unsolved_issue, name='all_unsolved_issues'),
+   path('change_solve_status/<int:issue_id>', views.change_solve_status, name='change_solve_status'),
 ]

@@ -280,7 +280,7 @@ def create_issue(request, repo_name):
         belong_to = RepoModel.objects.get(name=repo_name)
     except ObjectDoesNotExist:
         return render(request, 'gitlight/404.html', {})
-    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['content'])
+    new_issue = Issue(belong_to=belong_to, title=request.POST['issue_title'], content=request.POST['content'],update_time=timezone.now())
     new_issue.save()
 
     return redirect(reverse('issue_list_page', args=[repo_name]))
@@ -343,10 +343,46 @@ def create_reply(request, issue_id):
         belong_to = Issue.objects.get(id=issue_id)
     except ObjectDoesNotExist:
         raise Http404
-    new_reply = Reply(belong_to=belong_to, content=request.POST['content'])
+    new_reply = Reply(belong_to=belong_to, content=request.POST['content'],update_time=timezone.now())
     new_reply.save()
 
     return redirect(reverse('issue_detail_page', args=[issue_id]))
+
+def change_solve_status(request, issue_id):
+
+    try:
+        issue = Issue.objects.get(pk=int(issue_id))
+    except:
+        return HttpResponse('No such issue')
+
+    
+    if issue.solved_state == 'T':
+        issue.solved_state = 'F'
+    else:
+        issue.solved_state = 'T'
+    issue.save()
+
+    issue.content = markdown.markdown(issue.content, extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ])
+    # Reply editor
+    editor = IssueForm()
+    # Get all replies
+    replies = Reply.objects.filter(belong_to=issue).all()
+    # Format all replies
+    for reply in replies:
+        reply.content = markdown.markdown(reply.content, extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+    context = {'issue': issue,
+               'editor': editor,
+               'replies': replies}
+    print(issue.solved_state)
+    return render(request, 'gitlight/issue_detail.html', context)
 
 
 def profile_page(request):

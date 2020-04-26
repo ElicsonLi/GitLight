@@ -28,6 +28,7 @@ class Issue(models.Model):
         max_length=100)
     # Content of issue
     content = MDTextField()
+    update_time = models.DateTimeField()
 
     # Indicate whether a issue has been solved
     SOLVED = 'T'
@@ -48,6 +49,7 @@ class Reply(models.Model):
         'Issue', default=None, on_delete=models.PROTECT)
     # Content of issue
     content = MDTextField()
+    update_time = models.DateTimeField()
 
 class Profile(models.Model):
     bio_input_text = models.CharField(max_length=200)
