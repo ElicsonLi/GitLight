@@ -3,84 +3,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Repo page</title>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"
-            integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2_modified.css" %}">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2.min.css" %}">
 </head>
-<body>
+<body class="bg-gradient-primary">
+<div class="container">
 
-    <div class="" id="wrapper">
-        <!-- Sidebar -->
-        <ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    
-            <!-- Sidebar - Brand -->
-            <div class="side-logo sidebar-brand d-flex align-items-center justify-content-center">
-                <div class="side-nav-trigger">
-                    <svg viewBox="0 0 24 24" class="side-menu-logo">
-                        <path d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
-                    </svg>
-                </div>
-    
-                {#            <a href="#">#}
-                {#                <img src="logo.png" alt="" class="logo">#}
-                {#            </a>#}
-            </div>
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-    
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'repo_list' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Repo List</span></a>
-            </li>
-    
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-    
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Explore
-            </div>
-    
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Unsolved Issues</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-        </ul>
-        <!-- End of Sidebar -->
-    
-        <!-- Content Wrapper -->
-        <div class="" id="content-wrapper">
-            <!-- Main Content -->
-            <div class="" id="content">
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <header class="margin-top-header">
-                        <div class="profile-photo">
-                            <img src="profile-img.png" alt="" class="rounded-circle">
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1>Welcome!</h1>
+                                    
+                                </div>
+                                <h2 class="h4 text-gray-900 mb-4">
+                                    A confirmation email has been sent to {{email}}.  Please click the link
+                                    in that email to confirm your email address and complete your registration for
+                                    your gitlight</h2>
+                            </div>
                         </div>
-                        <h1 class="text-center margin-top-text">Welcome to GitLight!</h1>
-                        <h1 class="text-center margin-top-text">
-                            A confirmation email has been sent to {{email}}.  Please click the link
-                            in that email to confirm your email address and complete your registration for
-                            your account.
-                        </h1>
-                    </header>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{% static "gitlight/js/effects.js" %}"></script>
+</div>
 </body>
 </html>
+
+
+
