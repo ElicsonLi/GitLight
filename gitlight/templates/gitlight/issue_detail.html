@@ -112,25 +112,27 @@
                     <div class="profile-photo">
                         <img src="profile-img.png" alt="" class="rounded-circle">
                     </div>
-                    <h1 class="text-center margin-top-text">Issue #{{ issue.id }}: {{ issue.title }}</h1>
-                    <div class="text-center margin-top-text">
-                        {{ issue.content | safe }}
+                    <h1 class="text-left margin-top-text">Issue #{{ issue.id }}: {{ issue.title }}</h1>
+                    {% if issue.solved_state is 'T' %}
+                        <h3 class="btn btn-success">SOLVED</h3>
+                    {% else %}
+                        <h3 class="btn btn-danger">UNSOLVED</h3>
+                    {% endif %}
+
+                    <div class="margin-top-text">
+                        <p>{{ issue.content | safe }}</p>
                     </div>
                 </header>
-                {# Reply #}
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h3 class="m-0 font-weight-bold text-primary">Replies</h3>
+                {% for reply in replies %}
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Reply from !USERNAME!</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ reply.content | safe }}</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <ul>
-                            {% for reply in replies %}
-                                <p>{{ reply.content | safe }}</p>
-                                <hr>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+                {% endfor %}
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
