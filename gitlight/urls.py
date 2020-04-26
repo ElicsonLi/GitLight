@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.repo_list, name='repo_list'),
     path('login', views.login_action, name='login'),
+    path('logout', views.logout_action, name='logout'),
     path('register', views.register_action, name='register'),
     path('profile', views.accssemyprofile_action, name='profile_page'),
     path('othersprofile/<int:id>', views.accessothers_action, name='others_profile_page'),

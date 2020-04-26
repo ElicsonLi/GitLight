@@ -60,13 +60,15 @@
             </a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr class="sidebar-divider my-0">
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'logout' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Log out</span></a>
+        </li>
+
 
     </ul>
     <!-- End of Sidebar -->
