@@ -1,84 +1,17 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Profile Page</title>
-        <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2_modified.css" %}">
-    </head>
-    <body>
-        <div class="" id="wrapper">
-            <!-- Sidebar -->
-            <ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-              <!-- Sidebar - Brand -->
-              <div class="side-logo sidebar-brand d-flex align-items-center justify-content-center">
-                  <div class="side-nav-trigger">
-                      <svg viewBox = "0 0 24 24" class="side-menu-logo">
-                          <path d = "M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
-                      </svg>
-                  </div>
-
-                  <a href="#">
-                      <img src="logo.png" alt="" class="logo">
-                  </a>
-              </div>
-              <!-- Divider -->
-              <hr class="sidebar-divider my-0">
-
-              <!-- Nav Item - Dashboard -->
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'repo_list' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Repo List</span></a>
-              </li>
-
-              <!-- Divider -->
-              <hr class="sidebar-divider">
-
-              <!-- Heading -->
-              <div class="sidebar-heading">
-                Enssentials
-              </div>
-
-              <!-- Nav Item - Utilities Collapse Menu -->
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Unsolved Issues</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'users_list' %}">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'logout' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Log out</span></a>
-        </li>
-
-
-            </ul>
-            <!-- End of Sidebar -->
-            <!-- Content Wrapper -->
-            <div class="" id="content-wrapper">
-                <!-- Main Content -->
-                <div class="" id="content">
-                    <!-- Topbar -->
-                    <nav class="fix-nav space-between navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <div class="side-logo">
-                            <div class="side-nav-trigger">
-                                <svg viewBox = "0 0 24 24" class="side-menu-logo">
-                                    <path d = "M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
-                                </svg>
-                            </div>
+<head>
+    <meta charset="utf-8">
+    <title>Profile Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+            integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "gitlight/css/sb-admin-2_modified.css" %}">
+</head>
+<body>
+<div class="" id="wrapper">
+    <!-- Sidebar -->
+    <ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <div class="side-logo sidebar-brand d-flex align-items-center justify-content-center">
@@ -123,23 +56,23 @@
                 <span>Users</span>
             </a>
         </li>
+        <hr class="sidebar-divider my-0">
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'logout' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Log out</span></a>
+        </li>
     </ul>
+
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
     <div class="" id="content-wrapper">
         <!-- Main Content -->
         <div class="" id="content">
             <!-- Topbar -->
-            <nav class="fix-nav space-between navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <div class="fix-nav space-between navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <div class="side-logo">
                     <div class="side-nav-trigger">
                         <svg viewBox="0 0 24 24" class="side-menu-logo">
@@ -147,142 +80,214 @@
                         </svg>
                     </div>
 
-                    <a href="#">
-                        <img src="blue-logo.png" alt="" class="logo">
-                    </a>
-                </div>
-                <ul class="navbar-nav ">
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a href="#" class="nav-link dropdown-toggle">
-                            <span>Message</span>
+                    <!-- Sidebar - Brand -->
+                    <div class="side-logo sidebar-brand d-flex align-items-center justify-content-center">
+                        <div class="side-nav-trigger">
+                            <svg viewBox="0 0 24 24" class="side-menu-logo">
+                                <path d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
+                            </svg>
+                        </div>
+
+                        <a href="#">
+                            <img src="logo.png" alt="" class="logo">
+                        </a>
+                    </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'repo_list' %}">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Repo List</span></a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Enssentials
+                    </div>
+
+                    <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>Unsolved Issues</span>
                         </a>
                     </li>
-                    <div class="topbar-divider d-none d-sm-block">
-
-                    </div>
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a href="#" class="nav-link dropdown-toggle">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
-                            <img src="profile-img.png" alt="" class="img-profile rounded-circle">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users_list' %}">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>Users</span>
                         </a>
                     </li>
-                </ul>
-            </nav>
-            <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-                <!-- Page Heading -->
-                <header class="margin-top-header">
-                    <div class="profile-photo">
-                        <img src="profile-img.png" alt="" class="rounded-circle">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
                     </div>
-                    <h1 class="text-center margin-top-text">Welcome to gitlight!</h1>
-                    <div class="text-center margin-top-text">
-                        Your profile for GitLight
-                    </div>
-                </header>
-                <div class="row  margin-top-text">
 
-                    <div class="col-lg-6">
-
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Profile</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="flex-div">
-                                    <div class="flex-basis">
-                                        Photo
+                    </ul>
+                    <!-- End of Sidebar -->
+                    <!-- Content Wrapper -->
+                    <div class="" id="content-wrapper">
+                        <!-- Main Content -->
+                        <div class="" id="content">
+                            <!-- Topbar -->
+                            <nav class="fix-nav space-between navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                                <div class="side-logo">
+                                    <div class="side-nav-trigger">
+                                        <svg viewBox="0 0 24 24" class="side-menu-logo">
+                                            <path d="M4 7C4 6.44772 4.44772 6 5 6H19C19.5523 6 20 6.44772 20 7C20 7.55228 19.5523 8 19 8H5C4.44772 8 4 7.55228 4 7ZM4 12C4 11.4477 4.44772 11 5 11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H5C4.44772 13 4 12.5523 4 12ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z"></path>
+                                        </svg>
                                     </div>
-                                    <div class="">
-                                        {% if item.profile_picture %}
-                                            <img src="{% url 'photo' item.id %}" alt="{{ item.text }}" width="200px"
-                                                 id="id_user_picture">
-                                            <br>
-                                        {% else %}
-                                            <img src="/static/img/default.JPG" alt="{{ item.text }}" width="200px"
-                                                 id="id_user_picture">
-                                        {% endif %}
+
+                                    <a href="#">
+                                        <img src="blue-logo.png" alt="" class="logo">
+                                    </a>
+                                </div>
+                                <ul class="navbar-nav ">
+                                    <li class="nav-item dropdown no-arrow mx-1">
+                                        <a href="#" class="nav-link dropdown-toggle">
+                                            <span>Message</span>
+                                        </a>
+                                    </li>
+                                    <div class="topbar-divider d-none d-sm-block">
+
+                                    </div>
+                                    <li class="nav-item dropdown no-arrow mx-1">
+                                        <a href="#" class="nav-link dropdown-toggle">
+                                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">user</span>
+                                            <img src="profile-img.png" alt="" class="img-profile rounded-circle">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- End of Topbar -->
+
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
+                                <!-- Page Heading -->
+                                <header class="margin-top-header">
+                                    <div class="profile-photo">
+                                        <img src="profile-img.png" alt="" class="rounded-circle">
+                                    </div>
+                                    <h1 class="text-center margin-top-text">Welcome to gitlight!</h1>
+                                    <div class="text-center margin-top-text">
+                                        Your profile for GitLight
+                                    </div>
+                                </header>
+                                <div class="row  margin-top-text">
+
+                                    <div class="col-lg-6">
+
+                                        <!-- Custom Text Color Utilities -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h2 class="m-0 font-weight-bold text-primary">Profile</h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="flex-div">
+                                                    <div class="flex-basis">
+                                                        Photo
+                                                    </div>
+                                                    <div class="">
+                                                        {% if item.profile_picture %}
+                                                            <img src="{% url 'photo' item.id %}" alt="{{ item.text }}"
+                                                                 width="200px"
+                                                                 id="id_user_picture">
+                                                            <br>
+                                                        {% else %}
+                                                            <img src="/static/img/default.JPG" alt="{{ item.text }}"
+                                                                 width="200px"
+                                                                 id="id_user_picture">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <form enctype="multipart/form-data" action="{% url 'profile_page' %}"
+                                                  method="post"
+                                                  class="add-form">
+                                                <div class="split-line"></div>
+                                                {% for field in form.visible_fields %}
+                                                    <div class="card-body">
+                                                        <div class="flex-div">
+                                                            <div class="flex-basis">
+                                                                {{ field.label_tag }}
+                                                            </div>
+                                                            <div class="">
+                                                                {{ field }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                <div class="split-line"></div>
+                                                <div class="card-body">
+                                                    <div class="flex-div">
+                                                        <div class="flex-basis">
+                                                            Submit Changes
+                                                        </div>
+                                                        <div class="">
+                                                            <input type="submit" value="Submit"
+                                                                   class="btn btn-primary btn-user btn-block">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <form enctype="multipart/form-data" action="{% url 'profile_page' %}" method="post"
-                                  class="add-form">
-                                <div class="split-line"></div>
-                                {% for field in form.visible_fields %}
-                                    <div class="card-body">
-                                        <div class="flex-div">
-                                            <div class="flex-basis">
-                                                {{ field.label_tag }}
+                                <!-- Second Row -->
+                                <div class="row margin-top-text">
+                                    <div class="col-lg-6">
+                                        <!-- Custom Text Color Utilities -->
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h2 class="m-0 font-weight-bold text-primary">Repo Created</h2>
                                             </div>
-                                            <div class="">
-                                                {{ field }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <div class="split-line"></div>
-                                <div class="card-body">
-                                    <div class="flex-div">
-                                        <div class="flex-basis">
-                                            Submit Changes
-                                        </div>
-                                        <div class="">
-                                            <input type="submit" value="Submit" class="btn btn-primary btn-user btn-block">
+                                            {% if repos %}
+                                                {% for repo in repos %}
+                                                    <div class="card-body">
+                                                        <div class="flex-div">
+                                                            <a href="{% url 'repo_contents' repo.name %}"
+                                                               id="test">{{ repo.name }}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="split-line"></div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="card-body">
+                                                    <div class="flex-div">
+                                                        Oh no! I found 404 repo here!
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {#                            <div class="card-body">#}
+                                            {#                                <div class="flex-div">#}
+                                            {#                                    <div class="flex-basis">#}
+                                            {#                                        PHONE#}
+                                            {#                                    </div>#}
+                                            {#                                    <div class="">#}
+                                            {#                                        (123)-456-7890#}
+                                            {#                                    </div>#}
+                                            {#                                </div>#}
+                                            {#                            </div>#}
                                         </div>
                                     </div>
                                 </div>
-                                {% csrf_token %}
-                            </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Second Row -->
-                <div class="row margin-top-text">
-                    <div class="col-lg-6">
-                        <!-- Custom Text Color Utilities -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h2 class="m-0 font-weight-bold text-primary">Repo Created</h2>
-                            </div>
-                            {% if repos %}
-                                {% for repo in repos %}
-                                    <div class="card-body">
-                                        <div class="flex-div">
-                                            <a href="{% url 'repo_contents' repo.name %}"
-                                               id="test">{{ repo.name }}</a>
-                                        </div>
-                                    </div>
-                                    <div class="split-line"></div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="card-body">
-                                    <div class="flex-div">
-                                        Oh no! I found 404 repo here!
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {#                            <div class="card-body">#}
-                            {#                                <div class="flex-div">#}
-                            {#                                    <div class="flex-basis">#}
-                            {#                                        PHONE#}
-                            {#                                    </div>#}
-                            {#                                    <div class="">#}
-                            {#                                        (123)-456-7890#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript" src="{% static "gitlight/js/effects.js" %}"></script>
+                <script type="text/javascript" src="{% static "gitlight/js/effects.js" %}"></script>
 </body>
 </html>

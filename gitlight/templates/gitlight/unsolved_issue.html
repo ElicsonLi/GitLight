@@ -99,40 +99,40 @@
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <header class="margin-top-header">
-                    <div class="profile-photo">
-                        <img src="profile-img.png" alt="" class="rounded-circle">
-                    </div>
-                    <h1 class="text-center margin-top-text">Welcome to GitLight!</h1>
                 </header>
                 {# Repo infos #}
-                <div class="row">
-                    {# Repo lists #}
-                    <div class="col">
-                        <div class="col margin-top-text">
-                            <!-- Custom Text Color Utilities -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h2 class="m-0 font-weight-bold text-primary">All Issues</h2>
-                                </div>
-                                <div class="card-body">
-                                    <div class="flex-div">
-                                        <div class="">
-                                            <ul>
-                                                {% for issue in issues %}
-                                                    <li>
-                                                        <a href="{% url 'issue_detail_page' issue.id %}"
-                                                           id="test">{{ issue.title }}</a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
+                {% for repo in repos %}
+                    <div class="row">
+                        {# Repo lists #}
+                        <div class="col">
+                            <div class="col margin-top-text">
+                                <!-- Custom Text Color Utilities -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h2 class="m-0 font-weight-bold text-primary">Unsolved issues for {{ repo.name }}</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="flex-div">
+                                            <div class="">
+                                                <ul>
+                                                    {% for issue in issues %}
+                                                        {% if issue.belong_to.id is repo.id %}
+                                                        <li>
+                                                            <a href="{% url 'issue_detail_page' issue.id %}"
+                                                               id="test">{{ issue.title }}</a>
+                                                        </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
