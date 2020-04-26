@@ -16,6 +16,10 @@ Steps to create a ssh key.
 
 http://3.20.246.26/
 
+Or
+
+3.20.246.26:8000
+
 ## Introdution
 
 Our project is building a website with git service that can be used by students, individual developers and small business. 
