@@ -25,6 +25,7 @@ from gitlight.models import *
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
 
+
 def login_action(request):
     context = {}
     # Display the registration form if this is a GET request.
@@ -76,18 +77,18 @@ def register_action(request):
                                         last_name=form.cleaned_data['last_name'])
     new_user.is_active = False
     new_user.save()
-        # Generate a one-time use token and an email message body
+    # Generate a one-time use token and an email message body
     token = default_token_generator.make_token(new_user)
 
     email_body = """
 Please click the link below to verify your email address and
 complete the registration of your account:
   http://{host}{path}
-""".format(host=request.get_host(), 
+""".format(host=request.get_host(),
            path=reverse('confirm', args=(new_user.username, token)))
 
     send_mail(subject="Verify your email address",
-              message= email_body,
+              message=email_body,
               from_email="gitlight_team@cmu.edu",
               recipient_list=[new_user.email])
 
@@ -102,7 +103,8 @@ complete the registration of your account:
     #     profile.save()
     setDefaultProfile(new_user)
     # login(request, new_user)
-    return render(request,'gitlight/need_confirmation.html',context)
+    return render(request, 'gitlight/need_confirmation.html', context)
+
 
 def confirm_action(request, username, token):
     user = get_object_or_404(User, username=username)
@@ -142,19 +144,22 @@ def accssemyprofile_action(request):
     else:
         profile.bio_input_text = "Please write your bio"
         profile.profile_picture = "/static/default.jpg"
+    repo_created = RepoModel.objects.filter(user=request.user.id).all()
+    context['repos'] = repo_created
     return render(request, 'gitlight/profile.html', context)
 
 
 @login_required
 def accessothers_action(request, id):
-    if(id == request.user.id):
+    if (id == request.user.id):
         return redirect(reverse('profile_page'))
     else:
         context = {}
-        others_profile = Profile.objects.get(profile_user_id = id)
+        others_profile = Profile.objects.get(profile_user_id=id)
         context['item'] = others_profile
-        my = Profile.objects.get(profile_user_id = request.user.id)
+        my = Profile.objects.get(profile_user_id=request.user.id)
         return render(request, 'gitlight/othersprofile.html', context)
+
 
 @login_required
 def repo_list(request):
@@ -233,9 +238,9 @@ def file_view(request, repo_name, repo_path=None):
         'path': path,
         'blob_or_tree': blob_or_tree,
         'filename': filename,
-        'render_code': highlight_or_render(blob_or_tree.data, filename,not render_markup),
-        'render_markup' : render_markup,
-        'is_markup' : is_markup,
+        'render_code': highlight_or_render(blob_or_tree.data, filename, not render_markup),
+        'render_markup': render_markup,
+        'is_markup': is_markup,
         'root_tree': root_tree
     }
     return render(request, 'gitlight/file_view.html', context)
@@ -367,7 +372,16 @@ def get_photo(request, id):
 
     return HttpResponse(item.profile_picture, content_type=item.content_type)
 
+
 def list_all_user(request):
     allusers = User.objects.all()
-    context = {'users':allusers}
+    context = {'users': allusers}
     return render(request, 'gitlight/users_list.html', context)
+
+
+def list_all_unsolved_issue(request):
+    all_issue = Issue.objects.filter(solved_state='F').all()
+    context = {
+        'issues': all_issue
+    }
+    return render(request, 'gitlight/unsolved_issue.html', context)
