@@ -1,30 +1,10 @@
 # GitLight
 
-## Attention
-
-Git server requires ssh key to access git repository. Users without their key in git server's .ssh/authorized_keys will only be able to create repo and come up with issues. Authorized user (have their key in .ssh/authorized_keys) will be able to clone/push repos.
-
-Steps to create a ssh key.
-
-1. Create ssh key by typein `ssh-keygen` in your shell.
-
-2. Your ssh key should now in your .ssh/id_rsa by default.
-
-3. Copy and paste to git server's .ssh/authorized_keys file
-
-## Demo Link
-
-http://3.20.246.26/
-
-Or
-
-3.20.246.26:8000
-
 ## Introdution
 
-Our project is building a website with git service that can be used by students, individual developers and small business. 
+A git viewer in Django. [demo](http://3.20.246.26/)
 
-## Environment
+## Environment Setup
 
 `pip install humanize werkzeug dulwich httpauth pygments django-mdeditor `
 
@@ -55,48 +35,6 @@ Our project is building a website with git service that can be used by students,
 
 ## Reference
 
-Theme: SB Admin 2
+Theme: [SB Admin 2](https://github.com/StartBootstrap/startbootstrap-sb-admin-2).
 
-Klaus, a flask git viewer
-
-## Contributions
-
-### Zihao Cao
-
-Repo create 
-
-Git server/clone url
-
-Built in markdown editor
-
-Issue/reply
-
-Commits history view
-
-Front end for repo page/repo list/issue/reply/login/register
-
-Deployment
-
-### Zhengpei Li
-
-Commit history view for different subordinate directory
-
-File view/Highlight for code view
-
-Difference in each commit
-
-Email authentication
-
-Profile
-
-Front end for file view/commit view/profile page
-
-### Liangyi Zhao
-
-Logo and UI design for the website
-
-Javascript/Jquery animation
-
-User permission management (undeployed)
-
-Front-end pages modification
+[Klaus](https://github.com/jonashaag/klaus), a flask git viewer.
